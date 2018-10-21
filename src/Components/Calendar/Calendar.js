@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Calendar from "react-big-calendar";
+import GroupTable from "../MaterialUI/GroupTable.js"
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -43,19 +44,21 @@ class myCalendar extends Component {
     };
 	}
 
-
   render() {
     return (
-      <div className="App" >
+
+      <div className="App" style={{display: "flex"}}>
+      
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
-          defaultView="month"
+          defaultView="week"
           events={this.state.events}
-          style={{ height: "90vh", width: "55vw"}}
+          style={{ height: "80vh", width: "55vw", marginLeft: 10}}
           eventPropGetter={(this.eventStyleGetter)}
   		  
         />
+        <GroupTable style={{ width: "30vw"}}/>
       </div>
     );
   }

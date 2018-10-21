@@ -1,5 +1,7 @@
 import React from 'react';
-
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 
 class SignIn extends React.Component  {
 	state ={
@@ -12,13 +14,25 @@ class SignIn extends React.Component  {
 		return(
 		<div>
 			<div>
-				<input value ={this.state.name} placeholder ="email"/>
+				<TextField
+		          id="outlined-with-placeholder"
+		          label="Enter Email"
+		          placeholder="Email"
+		          margin="normal"
+		          variant="outlined"
+		        />
 			</div> 
 			<div>
-				<input value ={this.state.name} placeholder ="password"/>
+				<TextField
+		          id="outlined-with-placeholder"
+		          label="Enter Password"
+		          placeholder="Password"
+		          margin="normal"
+		          variant="outlined"
+		        />
 			</div> 
 			<div>
-				<button onClick= {this.submitMe}>LOG ME IN BBY</button>
+				{/*<Button variant="outlined" size="small" color="primary" > LOG ME IN BBY </Button>*/}
 			</div> 
 		 </div>
 	)}
