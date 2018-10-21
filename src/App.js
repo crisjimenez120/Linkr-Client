@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import SignIn from './Components/SignIn.js'
+import Calendar from './Components/Calendar/Calendar.js'
+
 import './App.css';
 
 class App extends Component {
+  state = {
+    visible : false
+  }
+
+  makeVisible = () =>{
+    this.setState({
+      visible : !this.state.visible
+    })
+  }
+  
   render() {
+    const buttonText = this.state.visible ? "LOG ME TF IN" : "LOG ME TF OUT"
+  
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+
+      {this.state.visible ? <SignIn/> : <Calendar/>} 
+      <button onClick ={this.makeVisible}> {buttonText} </button>
+        
       </div>
     );
   }
 }
+
 
 export default App;
