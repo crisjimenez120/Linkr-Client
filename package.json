@@ -30,5 +30,6 @@
   ],
   "devDependencies": {
     "css-loader": "^1.0.0"
-  }
+  },
+  "proxy" : "http://localhost:3001"
 }

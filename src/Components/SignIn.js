@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 class SignIn extends React.Component  {
 	state ={
@@ -14,6 +15,9 @@ class SignIn extends React.Component  {
 		return(
 		<div>
 			<div>
+			<Typography variant="h3" color="inherit" noWrap>
+              Linkr
+            </Typography>
 				<TextField
 		          id="outlined-with-placeholder"
 		          label="Enter Email"

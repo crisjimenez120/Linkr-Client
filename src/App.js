@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SignIn from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
+import Users from "./Components/Users/Users.js"
+
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Nav from './Components/MaterialUI/Nav.js';
@@ -23,9 +25,13 @@ class App extends Component {
   
     return (
       <div className="App">
-      <Nav/>
+      
+      {this.state.visible ? null : <Nav/>}
       {this.state.visible ? <SignIn/> : <Calendar/>}
         <Button onClick ={this.makeVisible} variant="outlined" size="small" color="primary" > {buttonText} </Button>
+        
+          <Users/>
+       
       </div>
     );
   }

@@ -37,7 +37,8 @@ class myCalendar extends Component {
         opacity: 0.8,
         color: 'black',
         border: '0px',
-        display: 'block'
+        display: 'block',
+
     };
     return {
         style: style
@@ -54,11 +55,13 @@ class myCalendar extends Component {
           defaultDate={new Date()}
           defaultView="week"
           events={this.state.events}
-          style={{ height: "80vh", width: "55vw", marginLeft: 10}}
+          style={{ height: "80vh", width: "55vw", margin: 10}}
           eventPropGetter={(this.eventStyleGetter)}
   		  
         />
         <GroupTable style={{ width: "30vw"}}/>
+        
+
       </div>
     );
   }

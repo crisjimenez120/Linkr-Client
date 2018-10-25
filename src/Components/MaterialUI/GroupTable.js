@@ -14,7 +14,8 @@ const styles = theme => ({
     marginTop: theme.spacing.unit *3,
     overflowX: 'auto',
     display: 'flex',
-    justifyContent: 'right'
+    justifyContent: 'right',
+    margin: 10
   },
   table: {
     minWidth: 700,
@@ -40,7 +41,7 @@ const rows = [
   createData('Teen Titans', 3),
   createData('Spice Girls', 50),
   createData('Backstreet Boys', 83),
-  createData('ANTIFA', 2391470219384)
+  
 
 ];
 
