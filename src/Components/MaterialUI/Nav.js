@@ -13,6 +13,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Link } from 'react-router-dom';
+
 
 const styles = theme => ({
   root: {
@@ -84,6 +86,10 @@ class PrimarySearchAppBar extends React.Component {
       >
         <MenuItem onClick={this.handleClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleClose}>My account</MenuItem>
+        <Link to={'/'} style={{ textDecoration: 'none' }}>
+              <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
+        </Link>
+        
       </Menu>
     );
 
@@ -128,7 +134,10 @@ class PrimarySearchAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h3" color="inherit" noWrap>
+            <Link to={'/calendar'} style={{ textDecoration: 'none', color:'white' }}>
               Linkr
+            </Link>
+             
             </Typography>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>

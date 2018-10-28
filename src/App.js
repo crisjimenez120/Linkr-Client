@@ -2,36 +2,25 @@ import React, { Component } from 'react';
 import SignIn from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
 import Users from "./Components/Users/Users.js"
-
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Nav from './Components/MaterialUI/Nav.js';
-
 import './App.css';
+import { Switch, Route } from 'react-router-dom'
 
 class App extends Component {
-  state = {
-    visible : false
-  }
-
-  makeVisible = () =>{
-    this.setState({
-      visible : !this.state.visible
-    })
-  }
   
-  render() {
-    const buttonText = this.state.visible ? "LOG ME TF IN" : "LOG ME TF OUT"
   
+  render() {  
     return (
       <div className="App">
-      
-      {this.state.visible ? null : <Nav/>}
-      {this.state.visible ? <SignIn/> : <Calendar/>}
-        <Button onClick ={this.makeVisible} variant="outlined" size="small" color="primary" > {buttonText} </Button>
-        
-          <Users/>
-       
+      <Nav/>
+      <Switch>
+        <Route exact path='/' component={SignIn}/>
+        <Route path='/Calendar' component={Calendar}/>
+        <Route path='/Users' component={Users}/>
+      </Switch>
+          
       </div>
     );
   }

@@ -12,21 +12,23 @@ class Users extends React.Component  {
 
 	
 
-  	componentWillMount(){
-  		 this.getData();
-  	}
-	/*componentDidMount(){
+	  	// componentWillMount(){
+	  	// 	 this.getData();
+	  	// }
+
+	componentDidMount(){
 	    fetch('/users').then( res => res.json())
 	                   .then( users => this.setState({ users }));
-  	}*/
-  	getData(){
+  	}
+
+  // 	getData(){
 	    
-		console.log('Our data is fetched');
-		this.setState({
-			users: [{id: 999, name:"Loading", role:"loading" }]
-		})
-		    
-	  }
+		// console.log('Our data is fetched');
+		// this.setState({
+		// 	users: [{id: 999, name:"Loading", role:"loading" }]
+		// }) 
+	 //  }
+	 
 	render(){
 		return(
 			<div>

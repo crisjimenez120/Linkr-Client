@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 class SignIn extends React.Component  {
 	state ={
@@ -36,7 +37,9 @@ class SignIn extends React.Component  {
 		        />
 			</div> 
 			<div>
-				{/*<Button variant="outlined" size="small" color="primary" > LOG ME IN BBY </Button>*/}
+				<Link to={'/calendar'} style={{ textDecoration: 'none' }}>
+					<Button variant="outlined" size="small" color="primary" > LOG ME IN BBY </Button>
+				</Link>
 			</div> 
 		 </div>
 	)}

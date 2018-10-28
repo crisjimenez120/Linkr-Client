@@ -37,7 +37,7 @@ function SimpleCard(props) {
         <Typography component="p">
           This is stupid
           <br />
-          {'"get me out of here"'}
+          {'"Hi"'}
         </Typography>
       </CardContent>
       <CardActions>

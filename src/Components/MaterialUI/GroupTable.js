@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -62,9 +63,11 @@ function SimpleTable(props) {
             return (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
+                <Link to={'/Users'} style={{ textDecoration: 'none', color:'black' }}>
                   {row.name}
-                </TableCell>
-                <TableCell numeric>{row.NumberOfMembers}</TableCell>
+                </Link>
+                </TableCell> 
+                  <TableCell numeric>{row.NumberOfMembers}</TableCell> 
               </TableRow>
             );
           })}

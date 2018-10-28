@@ -7,27 +7,32 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = Calendar.momentLocalizer(moment);
 
 class myCalendar extends Component {
-  state = {
-    events: [
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      events: [
       {
         start: new Date(),
         end: new Date(moment().add(1, "days")),
-        title: "1 title"
+        title: "1 Day Event"
 
       },
       {
         start: new Date(),
         end: new Date(moment().add(5, "days")),
-        title: "5 title"
+        title: "5 Day event"
       },
       {
         start: new Date(),
         end: new Date(moment().add(3, "days")),
-        title: "3 title",
+        title: "3 Day event",
         hexColor: '90ee90'
       }
     ]
-  };
+    }
+  }
+
   eventStyleGetter = (event, start, end, isSelected) =>{
     console.log(event);
     var backgroundColor = '#' + event.hexColor;
