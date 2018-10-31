@@ -6,6 +6,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+
 
 const styles = {
   card: {
@@ -35,13 +37,15 @@ function SimpleCard(props) {
           {user.role}
         </Typography>
         <Typography component="p">
-          This is stupid
+          Blah Blah Blah
           <br />
-          {'"Hi"'}
+          {'"More Blah"'}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="outlined" size="small" color="primary">Add to Group</Button>
+        <Link to={'/Groups'} style={{ textDecoration: 'none', color:'black' }}>
+               <Button variant="outlined" size="small" color="primary">Add to Group</Button>
+        </Link>
         <Button variant="outlined" size="small" color="primary">Delete</Button>
       </CardActions>
     </Card>

@@ -11,6 +11,7 @@
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
+    "react-trello": "^2.0.1",
     "tachyons": "^4.11.1",
     "typeface-roboto": "0.0.54"
   },

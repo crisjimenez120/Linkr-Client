@@ -13,13 +13,13 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit *3,
-    overflowX: 'auto',
-    display: 'flex',
-    justifyContent: 'right',
+    //overflowX: 'auto',
+    //display: 'flex',
+    //justifyContent: 'right',
     margin: 10
   },
   table: {
-    minWidth: 700,
+    minWidth: 100,
     
   },
 });

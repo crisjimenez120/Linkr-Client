@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import SignIn from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
 import Users from "./Components/Users/Users.js"
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"
 import Nav from './Components/MaterialUI/Nav.js';
 import './App.css';
 import { Switch, Route } from 'react-router-dom'
@@ -19,6 +18,7 @@ class App extends Component {
         <Route exact path='/' component={SignIn}/>
         <Route path='/Calendar' component={Calendar}/>
         <Route path='/Users' component={Users}/>
+        <Route path='/Groups' component={GroupsBoard}/>
       </Switch>
           
       </div>
