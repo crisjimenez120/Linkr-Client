@@ -33,11 +33,12 @@ class SignIn extends React.Component  {
 		          placeholder="Password"
 		          margin="normal"
 		          variant="outlined"
+
 		        />
 			</div> 
 			<div>
 				<Link to={'/calendar'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="small" color="primary" > LOG ME IN BBY </Button>
+					<Button variant="outlined" size="small" color="primary" > LOG ME IN </Button>
 				</Link>
 			</div> 
 		 </div>
@@ -45,5 +46,6 @@ class SignIn extends React.Component  {
 			
 	
 }
+
 
 export default SignIn;

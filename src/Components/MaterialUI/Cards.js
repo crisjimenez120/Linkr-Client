@@ -28,7 +28,7 @@ function SimpleCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-         Admin
+         {user.title}
         </Typography>
         <Typography variant="h5" component="h2">
           {user.name}
@@ -43,10 +43,7 @@ function SimpleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={'/Groups'} style={{ textDecoration: 'none', color:'black' }}>
-               <Button variant="outlined" size="small" color="primary">Add to Group</Button>
-        </Link>
-        <Button variant="outlined" size="small" color="primary">Delete</Button>
+        <Button variant="outlined" size="small" color="primary" fullWidth="true" >Delete</Button>
       </CardActions>
     </Card>
   );

@@ -8,12 +8,12 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
+import TemporaryDrawer from './SideDrawer';
+import Button from '@material-ui/core/Button';
 
 
 const styles = theme => ({
@@ -131,39 +131,25 @@ class PrimarySearchAppBar extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
+               <TemporaryDrawer/>
             </IconButton>
-            <Typography className={classes.title} variant="h3" color="inherit" noWrap>
-            <Link to={'/calendar'} style={{ textDecoration: 'none', color:'white' }}>
-              Linkr
-            </Link>
-             
+            <Typography className={classes.title} variant="h3" color="inherit" noWrap>         
+               <Link to={'/calendar'} style={{ textDecoration: 'none', color:'white' }}>
+                  Linkr 
+               </Link>
             </Typography>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge className={classes.margin} badgeContent={-1} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge className={classes.margin} badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                <MoreIcon />
-              </IconButton>
+    
+                     
+                  
+                      <Link to={'/'} style={{ textDecoration: 'none' }}>
+                             <Button variant="outlined" size="small" color="default" > LOG ME OUT </Button>
+                           </Link>
+                     </div>
+                     <div className={classes.sectionMobile}>
+                      
+          
             </div>
           </Toolbar>
         </AppBar>
