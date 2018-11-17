@@ -3,6 +3,7 @@ import SignIn from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
 import Users from "./Components/Users/Users.js"
 import Form from "./Components/Modal/Form.js"
+import Register from "./Components/Register/Register.js"
 
 import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"
 import './App.css';
@@ -21,6 +22,7 @@ class App extends Component {
       
       <Switch>
         <Route exact path='/' component={SignIn}/>
+        <Route path = '/Register' component ={Register}/>
         <Route exact path='/Form' component={Form}/>
         <Route path='/Calendar' component={Calendar}/>
         <Route path='/Users' component={Users}/>

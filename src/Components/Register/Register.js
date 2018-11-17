@@ -4,8 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
-class SignIn extends React.Component  {
+class Register extends React.Component  {
 	state ={
+		name: '',
 		email: '',
 		password: ''
 	}
@@ -18,14 +19,17 @@ class SignIn extends React.Component  {
 		//console.log(event.target.value)
 		this.setState({password: event.target.value})
 	}
-	onSubmitSignIn = () =>{
-		console.log(this.state.event)
-		console.log(this.state.password)
+	onNameChange= (event) =>{
+		//console.log(event.target.value)
+		this.setState({name: event.target.value})
+	}
 
-		fetch('/api_signin', {
+	onSubmitSignIn = () =>{
+		fetch('/api_registration', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify({
+				name: this.state.name,
 				email:this.state.email,
 				password: this.state.password
 			})
@@ -44,11 +48,19 @@ class SignIn extends React.Component  {
 			<div>
 			<Typography variant="h3" color="inherit" noWrap>
               Linkr
+              
+              </Typography>
+              <div>
+				<TextField
+		          id="outlined-with-placeholder"
+		          label="Enter Name"
+		          placeholder="Name"
+		          margin="normal"
+		          variant="outlined"
+		          onChange={this.onNameChange}
+		        />
+			</div> 
             
-            </Typography>
-            
-			</div>
-			<div>
 				<TextField
 		          id="outlined-with-placeholder"
 		          label="Enter Email"
@@ -69,15 +81,14 @@ class SignIn extends React.Component  {
 		        />
 			</div> 
 			<div>
-			<div>
+				<div>
 				{/*<Link to={'/calendar'} style={{ textDecoration: 'none' }}>*/}
-					<Button variant="outlined" size="Large" color="primary" onClick = {this.onSubmitSignIn}> LOG ME IN </Button>
+					<Button variant="outlined" size="Large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>
 				{/*</Link>*/}
 				</div>
-				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="Large" color="primary" style = {{margin: 10}}> Go To Register </Button>
+				<Link to={'/'} style={{ textDecoration: 'none' }}>
+					<Button variant="outlined" size="Large" color="primary" style = {{margin: 10}}> Go to Sign In </Button>
 				</Link>
-				
 			</div> 
 		 </div>
 	)}
@@ -86,4 +97,4 @@ class SignIn extends React.Component  {
 }
 
 
-export default SignIn;
+export default Register;

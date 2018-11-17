@@ -123,7 +123,6 @@ class myCalendar extends Component {
   //       ],
   //     })
   //   console.log(JSON.stringify(this.state.events));
-  //   handleSelectPost()
   // }
 
   handleSelect = ({ start, end }) => {
