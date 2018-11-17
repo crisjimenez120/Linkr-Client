@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 class SignIn extends React.Component  {
 	state ={
 		email: '',
-		password: ''
+		password: '',
 	}
 
 	onEmailChange= (event) =>{
@@ -22,7 +22,7 @@ class SignIn extends React.Component  {
 		console.log(this.state.event)
 		console.log(this.state.password)
 
-		fetch('/api_signin', {
+		fetch('/signin/api_signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify({
@@ -30,12 +30,12 @@ class SignIn extends React.Component  {
 				password: this.state.password
 			})
 		}).then(response => response.json())
-		// .then(user => {
-		// 	if(user.id){
-		// 		this.props.loadUser(user);
-		// 		this.props.onRouteChange('home');
-		// 	}
-		// })
+		.then(user => {
+			if(user.user_id){
+				this.props.loadUser(user);
+				this.props.authenticate(true);
+			}
+		})
 	}
 	
 	render(){
@@ -50,32 +50,35 @@ class SignIn extends React.Component  {
 			</div>
 			<div>
 				<TextField
-		          id="outlined-with-placeholder"
+		          //id="outlined-with-placeholder"
 		          label="Enter Email"
 		          placeholder="Email"
 		          margin="normal"
+		          type ="text"
 		          variant="outlined"
 		          onChange={this.onEmailChange}
 		        />
 			</div> 
 			<div>
 				<TextField
-		          id="outlined-with-placeholder"
+          		  id="outlined-adornment-password"
 		          label="Enter Password"
 		          placeholder="Password"
+		          //type = "password"
 		          margin="normal"
 		          variant="outlined"
+
 		          onChange = {this.onPasswordChange}
 		        />
 			</div> 
 			<div>
 			<div>
 				{/*<Link to={'/calendar'} style={{ textDecoration: 'none' }}>*/}
-					<Button variant="outlined" size="Large" color="primary" onClick = {this.onSubmitSignIn}> LOG ME IN </Button>
+					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn} style = {{margin: 10}}> LOG ME IN </Button>
 				{/*</Link>*/}
 				</div>
 				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="Large" color="primary" style = {{margin: 10}}> Go To Register </Button>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Register </Button>
 				</Link>
 				
 			</div> 

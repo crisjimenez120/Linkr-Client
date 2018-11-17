@@ -8,7 +8,8 @@ class Register extends React.Component  {
 	state ={
 		name: '',
 		email: '',
-		password: ''
+		password: '',
+		showPassword: false,
 	}
 
 	onEmailChange= (event) =>{
@@ -25,7 +26,7 @@ class Register extends React.Component  {
 	}
 
 	onSubmitSignIn = () =>{
-		fetch('/api_registration', {
+		fetch('/registration/api_registration', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify({
@@ -34,12 +35,12 @@ class Register extends React.Component  {
 				password: this.state.password
 			})
 		}).then(response => response.json())
-		// .then(user => {
-		// 	if(user.id){
-		// 		this.props.loadUser(user);
-		// 		this.props.onRouteChange('home');
-		// 	}
-		// })
+		.then(user => {
+			if(user.id){
+				this.props.loadUser(user);
+				this.props.authenticate(true);
+			}
+		})
 	}
 	
 	render(){
@@ -83,11 +84,11 @@ class Register extends React.Component  {
 			<div>
 				<div>
 				{/*<Link to={'/calendar'} style={{ textDecoration: 'none' }}>*/}
-					<Button variant="outlined" size="Large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>
+					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>
 				{/*</Link>*/}
 				</div>
 				<Link to={'/'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="Large" color="primary" style = {{margin: 10}}> Go to Sign In </Button>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go to Sign In </Button>
 				</Link>
 			</div> 
 		 </div>
