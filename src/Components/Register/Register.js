@@ -15,10 +15,6 @@ class Register extends React.Component  {
       }
     }
   }
-	state ={
-		
-		
-	}
 
 	onEmailChange= (event) =>{
 		//console.log(event.target.value)

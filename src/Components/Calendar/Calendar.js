@@ -70,7 +70,7 @@ class myCalendar extends Component {
     
   //Every time the component mounts we are pushing event event into a temp event array
   componentWillMount(){
-      fetch('/events').then( res => res.json())
+      fetch('/events/api_events').then( res => res.json())
                       //.then( res => console.log(res))
                       .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
                       
@@ -129,7 +129,7 @@ class myCalendar extends Component {
       // make a POST request to the backend
       const title = window.prompt('Event name')
        if (title){
-        fetch('/api/event', {
+        fetch('/events/api_create', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
               "Content-Type": "application/json; charset=utf-8",
@@ -139,6 +139,7 @@ class myCalendar extends Component {
             title: title,
             start: start,
             end: end,
+            user_email: this.props.email
           }),
         })//.then(res=>res.json())
           .then(res => console.log(res));
@@ -148,7 +149,7 @@ class myCalendar extends Component {
   render() {
     return (
      <div>
-          <Nav/>
+          <Nav user = {this.props.user}/>
           <div className="App" style={{display: "flex"}}>
        
         <Calendar

@@ -103,8 +103,9 @@ class PrimarySearchAppBar extends React.Component {
                <TemporaryDrawer/>
             </IconButton>
             <Typography className={classes.title} variant="h3" color="inherit" noWrap>         
-               <Link to={'/calendar'} style={{ textDecoration: 'none', color:'white' }}>
+               <Link to={'/Calendar'} style={{ textDecoration: 'none', color:'white' }}>
                   Linkr 
+                  {this.props.user.name}
                </Link>
             </Typography>
             <div className={classes.grow} />

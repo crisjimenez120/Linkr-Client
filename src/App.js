@@ -78,7 +78,7 @@ constructor(){
 loadUser = (data) => {
   this.setState({user:{
           id: data.id,
-          name:data.name,
+          name:data.user_name,
           email:data.email,
   }})
   console.log(data);
@@ -98,7 +98,7 @@ authenticate = (e) =>{
         <Route exact path='/' component={() => <Login loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
         <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
         <PrivateRoute exact path='/Form' component={Form}/>
-        <PrivateRoute path='/Calendar' component={Calendar}/>
+        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.user}/>}/>
         <PrivateRoute path='/Users' component={Users}/>
         <PrivateRoute path='/Groups' component={GroupsBoard}/>
       </Switch>
