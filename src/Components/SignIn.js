@@ -77,8 +77,9 @@ class SignIn extends React.Component  {
 			</div> 
 			<div>
 			<div>
+				<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn} style = {{margin: 10}}> LOG ME IN </Button>
 				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn} style = {{margin: 10}}> LOG ME IN </Button>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Calendar </Button>
 				</Link>
 				</div>
 				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>

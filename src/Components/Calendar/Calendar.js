@@ -70,7 +70,16 @@ class myCalendar extends Component {
     
   //Every time the component mounts we are pushing event event into a temp event array
   componentWillMount(){
-      fetch('/events/api_events').then( res => res.json())
+      fetch('/events/api_events', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify({
+            user_email: this.props.user.email
+          }),
+        }).then( res => res.json())
                       //.then( res => console.log(res))
                       .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
                       
@@ -139,7 +148,7 @@ class myCalendar extends Component {
             title: title,
             start: start,
             end: end,
-            user_email: this.props.email
+            user_email: this.props.user.email
           }),
         })//.then(res=>res.json())
           .then(res => console.log(res));
