@@ -15,12 +15,12 @@ class Users extends React.Component  {
 
 	
 
-	  	componentWillMount(){
-	  		 this.getData();
-	  	}
+	  	// componentWillMount(){
+	  	// 	 this.getData();
+	  	// }
 
 	componentDidMount(){
-	    fetch('/users').then( res => res.json())
+	    fetch('/users/api_all_users').then( res => res.json())
 	                   .then( users => this.setState({ users }));
   	}
 

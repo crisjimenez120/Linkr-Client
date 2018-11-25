@@ -14,31 +14,7 @@ import { Switch,
          withRouter} from 'react-router-dom'
 
 
-const Auth = {
-  isAuthenticated: false,
-  // authenticate(email, password, cb) {
-  //   // make a POST request to the backend
-  //   fetch('/auth/login', {
-  //     method: "POST", // *GET, POST, PUT, DELETE, etc.
-  //     headers: {
-  //         "Content-Type": "application/json; charset=utf-8",
-  //         // "Content-Type": "application/x-www-form-urlencoded",
-  //     },
-  //     body: JSON.stringify({
-  //       email: email,
-  //       password: password,
-  //     }),
-  //   }).then(response => {
-  //     if(response.status === 200) {
-  //       this.isAuthenticated = true;
-  //       cb();
-  //       return response.json();
-  //     }
-  //   }).then(body => {
-  //     console.log(body);
-  //   })
-  // }
-}
+
 
 function PrivateRoute({ component: Component, ...rest }) {
   return (
@@ -65,7 +41,7 @@ class App extends Component {
 constructor(){
     super();
     this.state = {
-      isSignedIn: Auth.isAuthenticated,
+      isSignedIn: false,
       user:{
           id:'',
           name:'',
@@ -85,7 +61,9 @@ loadUser = (data) => {
 } 
 
 authenticate = (e) =>{
-  Auth.isAuthenticated = e;
+  this.setState({
+    isSignedIn: e,
+  })
 
 }
 

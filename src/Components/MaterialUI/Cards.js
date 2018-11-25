@@ -28,13 +28,14 @@ function SimpleCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-         {user.title}
+         {/*user.title*/}
+         Admin
         </Typography>
         <Typography variant="h5" component="h2">
           {user.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {user.role}
+          {user.email}
         </Typography>
         <Typography component="p">
           Blah Blah Blah
