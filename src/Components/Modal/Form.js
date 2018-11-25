@@ -55,7 +55,7 @@ export class Form extends Component{
 			case 1:
 				return(
 					<div>
-					<Nav/>
+					<Nav user ={this.props.user}/>
 					<UserDetails
 						nextStep = {this.nextStep}
 						handleChange = {this.handleChange}
@@ -66,7 +66,7 @@ export class Form extends Component{
 			case 2:
 				return(
 					<div>
-					<Nav/>
+					<Nav user ={this.props.user}/>
 					<EventForm
 						nextStep = {this.nextStep}
 						prevStep = {this.prevStep}
@@ -78,7 +78,7 @@ export class Form extends Component{
 			case 3:
 				return(
 					<div>
-					<Nav/>
+					<Nav user ={this.props.user}/>
 					<Confirm
 						nextStep = {this.nextStep}
 						prevStep = {this.prevStep}

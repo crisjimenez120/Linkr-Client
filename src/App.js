@@ -15,7 +15,7 @@ import { Switch,
 
 
 const Auth = {
-  isAuthenticated: false,
+  isAuthenticated: true,
 }
 
 function PrivateRoute({ component: Component, ...rest }) {
@@ -75,10 +75,10 @@ authenticate = (e) =>{
       <Switch>
         <Route exact path='/' component={() => <Login loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
         <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
-        <PrivateRoute exact path='/Form' component={Form}/>
+        <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.user}/>}/>
         <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.user}/>}/>
-        <PrivateRoute path='/Users' component={Users}/>
-        <PrivateRoute path='/Groups' component={GroupsBoard}/>
+        <PrivateRoute path='/Users' component ={() => <Users user ={this.state.user}/>}/>
+        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={this.state.user}/>}/>
       </Switch>
           
       </div>

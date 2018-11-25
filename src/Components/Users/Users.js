@@ -15,9 +15,9 @@ class Users extends React.Component  {
 
 	
 
-	  	// componentWillMount(){
-	  	// 	 this.getData();
-	  	// }
+	  	componentWillMount(){
+	  		 this.getData();
+	  	}
 
 	componentDidMount(){
 	    fetch('/users/api_all_users').then( res => res.json())
@@ -36,7 +36,7 @@ class Users extends React.Component  {
 		return(
 			<div>
 				<div>
-					<Nav/>
+					<Nav user = {this.props.user}/>
 				</div>
 				<Typography variant="h3" color="inherit" noWrap>
               		BrOliC BoYz
@@ -45,10 +45,13 @@ class Users extends React.Component  {
             		<Link to={'/Groups'} style={{ textDecoration: 'none', color:'black' }}>
              			  <Button variant="outlined" size="large" color="primary">Add to Group</Button>
        			 	</Link>
-            	<div className = "Users">        
+            	<div className = "Users"> 
+            		<div>       
 		          {this.state.users.map( user =>
 		            	<Card  user = {user}/> 
-		            )}		
+		            )}
+		          	</div>
+		            <br/>		
 		        </div> 
 		        {// <div className = "Users">        
 		        //   {this.state.users.map( user =>

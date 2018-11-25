@@ -51,7 +51,7 @@ export default class GroupsBoard extends React.Component {
   render() {
     return (
     	<div>
-    	<Nav/>
+    	<Nav user={this.props.user}/>
     	<Board 
     		data={this.state} 
     		draggable
