@@ -14,7 +14,9 @@ import { Switch,
          withRouter} from 'react-router-dom'
 
 
-
+const Auth = {
+  isAuthenticated: false,
+}
 
 function PrivateRoute({ component: Component, ...rest }) {
   return (
@@ -41,7 +43,7 @@ class App extends Component {
 constructor(){
     super();
     this.state = {
-      isSignedIn: false,
+      isSignedIn: Auth.isAuthenticated,
       user:{
           id:'',
           name:'',
@@ -61,9 +63,7 @@ loadUser = (data) => {
 } 
 
 authenticate = (e) =>{
-  this.setState({
-    isSignedIn: e,
-  })
+  Auth.isAuthenticated = e
 
 }
 
