@@ -111,11 +111,11 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
     
-                     
+                    
                   
                       <Link to={'/'} style={{ textDecoration: 'none' }}>
                              <Button variant="outlined" size="small" color="default" > LOG ME OUT </Button>
-                           </Link>
+                      </Link>
                      </div>
                       
           

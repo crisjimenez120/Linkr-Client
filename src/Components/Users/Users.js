@@ -15,22 +15,22 @@ class Users extends React.Component  {
 
 	
 
-	  	componentWillMount(){
-	  		 this.getData();
-	  	}
+	  	// componentWillMount(){
+	  	// 	 this.getData();
+	  	// }
 
 	componentDidMount(){
 	    fetch('/users/api_all_users').then( res => res.json())
 	                   .then( users => this.setState({ users }));
   	}
 
-  	getData(){
+  //getData(){
 	    
-		console.log('Our data is fetched');
-		this.setState({
-			users: [{id: 999, name:"Loading", role:"loading" }]
-		}) 
-	  }
+		// console.log('Our data is fetched');
+		// this.setState({
+		// 	users: [{id: 999, name:"Loading", role:"loading" }]
+		// }) 
+ //}
 	 
 	render(){
 		return(
@@ -39,7 +39,7 @@ class Users extends React.Component  {
 					<Nav user = {this.props.user}/>
 				</div>
 				<Typography variant="h3" color="inherit" noWrap>
-              		BrOliC BoYz
+              		Friends
               		
             	</Typography>
             		<Link to={'/Groups'} style={{ textDecoration: 'none', color:'black' }}>

@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
-
+import Modal from './Modal'
 const styles = theme => ({
   root: {
     width: '100%',
@@ -48,6 +48,7 @@ function SimpleTable(props) {
   const { classes } = props;
 
   return (
+    <div>
     <Paper className={classes.root} style={{ width: "50vw" ,display: "flex", justifyContent: "center"}}>
       <Table className={classes.table}>
         <TableHead>
@@ -72,6 +73,8 @@ function SimpleTable(props) {
         </TableBody>
       </Table>
     </Paper>
+    <Modal/>
+    </div>
   );
 }
 

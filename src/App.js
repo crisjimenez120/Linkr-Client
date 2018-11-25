@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Login from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
 import Users from "./Components/Users/Users.js"
-import Form from "./Components/Modal/Form.js"
+import Form from "./Components/Form/Form.js"
+
 import Register from "./Components/Register/Register.js"
 
 import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"

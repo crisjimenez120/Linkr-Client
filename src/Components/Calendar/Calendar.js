@@ -4,6 +4,7 @@ import GroupTable from "../MaterialUI/GroupTable.js"
 import Nav from '../MaterialUI/Nav.js';
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Button from '@material-ui/core/Button';
 
 const localizer = Calendar.momentLocalizer(moment);
 // takes the JSON date formate and convert into a Date Object
@@ -68,32 +69,32 @@ class myCalendar extends Component {
     }
   }
     
-  //Every time the component mounts we are pushing event event into a temp event array
-  componentWillMount(){
-      fetch('/events/api_events', {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          headers: {
-              "Content-Type": "application/json; charset=utf-8",
-              // "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: JSON.stringify({
-            user_email: this.props.user.email
-          }),
-        }).then( res => res.json())
-                      //.then( res => console.log(res))
-                      .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
+  // //Every time the component mounts we are pushing event event into a temp event array
+  // componentWillMount(){
+  //     fetch('/events/api_events', {
+  //         method: "POST", // *GET, POST, PUT, DELETE, etc.
+  //         headers: {
+  //             "Content-Type": "application/json; charset=utf-8",
+  //             // "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //         body: JSON.stringify({
+  //           user_email: this.props.user.email
+  //         }),
+  //       }).then( res => res.json())
+  //                     //.then( res => console.log(res))
+  //                     .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
                       
-  }
+  // }
 
-  //so here we are just waiting for the stack to finish executing to parse the tempevent
-  componentDidMount(){
-    setTimeout (() => {
-      parseEvents(tempEvents);
-      this.setState({
-        events : tempEvents
-      })
-    })
-  }
+  // //so here we are just waiting for the stack to finish executing to parse the tempevent
+  // componentDidMount(){
+  //   setTimeout (() => {
+  //     parseEvents(tempEvents);
+  //     this.setState({
+  //       events : tempEvents
+  //     })
+  //   })
+  // }
 
     
       
@@ -138,11 +139,10 @@ class myCalendar extends Component {
       // make a POST request to the backend
       const title = window.prompt('Event name')
        if (title){
-        fetch('/events/api_create', {
+        fetch('/events/api_create_event', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
               "Content-Type": "application/json; charset=utf-8",
-              // "Content-Type": "application/x-www-form-urlencoded",
           },
           body: JSON.stringify({
             title: title,
@@ -159,24 +159,25 @@ class myCalendar extends Component {
     return (
      <div>
           <Nav user = {this.props.user}/>
-          <div className="App" style={{display: "flex"}}>
-       
-        <Calendar
-          selectable
-          localizer={localizer}
-          defaultDate={new Date(2018, 10, 17)}
-          defaultView="month"
-          events={this.state.events}
-          style={{ height: "80vh", width: "55vw", margin: 10}}
-          eventPropGetter={(this.eventStyleGetter)}
-          onSelectEvent={event => alert( event.title)}
-          onSelectSlot={this.handleSelect}
-        />
+            <div className="App" style={{display: "flex"}}>
+            
+            <Calendar
+              selectable
+              localizer={localizer}
+              defaultDate={new Date(2018, 10, 17)}
+              defaultView="month"
+              events={this.state.events}
+              style={{ height: "80vh", width: "55vw", margin: 10}}
+              eventPropGetter={(this.eventStyleGetter)}
+              onSelectEvent={event => alert( event.title)}
+              onSelectSlot={this.handleSelect}
+            />
 
-       <GroupTable />
-        
+           <GroupTable />
+            
 
-      </div>
+            </div>
+            
         </div>
 
     );
