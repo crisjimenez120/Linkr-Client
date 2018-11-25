@@ -5,9 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
 class SignIn extends React.Component  {
-	state ={
-		email: '',
-		password: '',
+	constructor(props){
+		super();
+		this.state = {
+			email: '',
+			password: '',
+		}
 	}
 
 	onEmailChange= (event) =>{
@@ -31,7 +34,8 @@ class SignIn extends React.Component  {
 			})
 		}).then(response => response.json())
 		.then(user => {
-			if(user.user_id){
+			if(user.email){
+				console.log("sending back the user");
 				this.props.loadUser(user);
 				this.props.authenticate(true);
 			}
@@ -73,9 +77,9 @@ class SignIn extends React.Component  {
 			</div> 
 			<div>
 			<div>
-				{/*<Link to={'/calendar'} style={{ textDecoration: 'none' }}>*/}
+				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn} style = {{margin: 10}}> LOG ME IN </Button>
-				{/*</Link>*/}
+				</Link>
 				</div>
 				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Register </Button>

@@ -5,11 +5,19 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
 class Register extends React.Component  {
-	state ={
-		name: '',
+	constructor(){
+    super();
+    this.state = {
+      user:{
+        name: '',
 		email: '',
 		password: '',
-		showPassword: false,
+      }
+    }
+  }
+	state ={
+		
+		
 	}
 
 	onEmailChange= (event) =>{
@@ -83,9 +91,9 @@ class Register extends React.Component  {
 			</div> 
 			<div>
 				<div>
-				{/*<Link to={'/calendar'} style={{ textDecoration: 'none' }}>*/}
+				<Link to={'/calendar'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>
-				{/*</Link>*/}
+				</Link>
 				</div>
 				<Link to={'/'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go to Sign In </Button>

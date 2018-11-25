@@ -67,7 +67,7 @@ constructor(){
     this.state = {
       isSignedIn: Auth.isAuthenticated,
       user:{
-          user_id:'',
+          id:'',
           name:'',
           email:'',
       }
@@ -77,14 +77,15 @@ constructor(){
 
 loadUser = (data) => {
   this.setState({user:{
-          user_id: data.user_id,
+          id: data.id,
           name:data.name,
           email:data.email,
   }})
+  console.log(data);
 } 
 
-authenticate = () =>{
-  Auth.isAuthenticated = true;
+authenticate = (e) =>{
+  Auth.isAuthenticated = e;
 
 }
 
