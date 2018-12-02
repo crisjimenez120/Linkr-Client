@@ -16,7 +16,7 @@ import { Switch,
 
 
 const Auth = {
-  isAuthenticated: true,
+  isAuthenticated: false,
 }
 
 function PrivateRoute({ component: Component, ...rest }) {

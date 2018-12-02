@@ -89,8 +89,8 @@ class myCalendar extends Component {
             user_email: this.props.user.email
           }),
         }).then( res => res.json())
-        .then( groups => console.log(groups))
-          //.then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
+        //.then( groups => console.log(groups))
+        .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
                       
   }
 
@@ -180,7 +180,7 @@ class myCalendar extends Component {
               "Content-Type": "application/json; charset=utf-8",
           },
           body: JSON.stringify({
-            title: title,
+            title: event.title,
             start: start,
             end: end,
             id: event.id
@@ -209,7 +209,7 @@ class myCalendar extends Component {
               onSelectSlot={this.handleSelect}
             />
 
-           <GroupTable />
+           <GroupTable user = {this.props.user}/>
             
 
             </div>
