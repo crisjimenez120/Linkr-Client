@@ -69,32 +69,32 @@ class myCalendar extends Component {
     }
   }
     
-  // //Every time the component mounts we are pushing event event into a temp event array
-  // componentWillMount(){
-  //     fetch('/events/api_events', {
-  //         method: "POST", // *GET, POST, PUT, DELETE, etc.
-  //         headers: {
-  //             "Content-Type": "application/json; charset=utf-8",
-  //             // "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //         body: JSON.stringify({
-  //           user_email: this.props.user.email
-  //         }),
-  //       }).then( res => res.json())
-  //                     //.then( res => console.log(res))
-  //                     .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
+  //Every time the component mounts we are pushing event event into a temp event array
+  componentWillMount(){
+      fetch('/events/api_events', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify({
+            user_email: this.props.user.email
+          }),
+        }).then( res => res.json())
+                      //.then( res => console.log(res))
+                      .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
                       
-  // }
+  }
 
-  // //so here we are just waiting for the stack to finish executing to parse the tempevent
-  // componentDidMount(){
-  //   setTimeout (() => {
-  //     parseEvents(tempEvents);
-  //     this.setState({
-  //       events : tempEvents
-  //     })
-  //   })
-  // }
+  //so here we are just waiting for the stack to finish executing to parse the tempevent
+  componentDidMount(){
+    setTimeout (() => {
+      parseEvents(tempEvents);
+      this.setState({
+        events : tempEvents
+      })
+    })
+  }
 
     
       
@@ -152,6 +152,16 @@ class myCalendar extends Component {
           }),
         })//.then(res=>res.json())
           .then(res => console.log(res));
+        this.setState({
+        events: [
+          ...this.state.events,
+          {
+            start,
+            end,
+            title,
+          },
+        ],
+      })
     }
   }
 
