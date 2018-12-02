@@ -165,6 +165,22 @@ class myCalendar extends Component {
     }
   }
 
+  resizeEvent = ({ event, start, end }) => {
+    const { events } = this.state
+
+    const nextEvents = events.map(existingEvent => {
+      return existingEvent.id == event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent
+    })
+
+    this.setState({
+      events: nextEvents,
+    })
+
+    alert(`${event.title} was resized to ${start}-${end}`)
+  }
+
   render() {
     return (
      <div>
@@ -177,6 +193,8 @@ class myCalendar extends Component {
               defaultDate={new Date(2018, 10, 17)}
               defaultView="month"
               events={this.state.events}
+              resizable
+              onEventResize={this.resizeEvent}
               style={{ height: "80vh", width: "55vw", margin: 10}}
               eventPropGetter={(this.eventStyleGetter)}
               onSelectEvent={event => alert( event.title)}
