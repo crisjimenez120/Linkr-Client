@@ -57,7 +57,7 @@ class myCalendar extends Component {
     this.state = 
     {
       events: [],
-      groups:[]
+      groups: []
     }
   }
     
@@ -174,7 +174,18 @@ class myCalendar extends Component {
       events: nextEvents,
     })
 
-    alert(`${event.id} was resized to ${start}-${end}`)
+    fetch('/events/api_update_event', {
+          method: "PUT", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify({
+            title: title,
+            start: start,
+            end: end,
+            id: event.id
+          }),
+        })
   }
 
 
