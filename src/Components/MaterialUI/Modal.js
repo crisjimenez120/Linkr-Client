@@ -37,8 +37,8 @@ class SimpleModal extends React.Component {
   };
 
   onSubmitModal = () =>{
-    console.log(this.state.event)
-    console.log(this.state.password)
+    console.log(this.state.groupName)
+    console.log(this.state.groupDesc)
 
     fetch('/signin/api_create_group', {
       method: 'post',
@@ -65,7 +65,7 @@ class SimpleModal extends React.Component {
 
     return (
       <div>
-        <Button variant="fab" color="primary" aria-label="Add" mini= "true" onClick={this.handleOpen}><AddIcon /></Button>
+        <Button variant="fab" color="primary" aria-label="Add" mini= "true" onClick={this.onSubmitModal}><AddIcon /></Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -94,7 +94,7 @@ class SimpleModal extends React.Component {
               />
             </Typography>
             <br/>
-           <Button variant="outlined" size="small" color="primary" >Submit</Button>
+           <Button variant="outlined" size="small" color="primary" onClick = {this.onSubmitSignIn} >Submit</Button>
           </div>
         </Modal>
       </div>
