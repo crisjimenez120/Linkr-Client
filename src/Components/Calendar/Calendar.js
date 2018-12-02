@@ -89,8 +89,8 @@ class myCalendar extends Component {
             user_email: this.props.user.email
           }),
         }).then( res => res.json())
-        //.then( res => console.log(res))
-          .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
+        .then( groups => console.log(groups))
+          //.then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
                       
   }
 
