@@ -40,7 +40,7 @@ class SimpleModal extends React.Component {
     console.log(this.state.groupName)
     console.log(this.state.groupDesc)
 
-    fetch('/signin/api_create_group', {
+    fetch('/groups/api_create_group', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body:JSON.stringify({
