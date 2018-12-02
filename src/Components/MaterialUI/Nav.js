@@ -102,22 +102,22 @@ class PrimarySearchAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
                <TemporaryDrawer/>
             </IconButton>
+          
             <Typography className={classes.title} variant="h3" color="inherit" noWrap>         
                <Link to={'/Calendar'} style={{ textDecoration: 'none', color:'white' }}>
-                  Linkr 
-                  {this.props.user.name}
+                  Linkr                       
                </Link>
+               {this.props.user.name}
             </Typography>
+           
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
     
-                    
                   
                       <Link to={'/'} style={{ textDecoration: 'none' }}>
                              <Button variant="outlined" size="small" color="default" > LOG ME OUT </Button>
                       </Link>
                      </div>
-                      
           
           </Toolbar>
         </AppBar>

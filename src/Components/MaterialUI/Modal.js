@@ -40,21 +40,16 @@ class SimpleModal extends React.Component {
     console.log(this.state.event)
     console.log(this.state.password)
 
-    fetch('/signin/api_signin', {
+    fetch('/signin/api_create_group', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body:JSON.stringify({
-        email:this.state.email,
-        password: this.state.password
+        groupName: this.state.groupName,
+        groupDesc: this.state.groupDesc,
+        email:this.props.user.emails
       })
-    }).then(response => response.json())
-    .then(user => {
-      if(user.email){
-        console.log("sending back the user");
-        this.props.loadUser(user);
-        this.props.authenticate(true);
-      }
     })
+    
   }
   
   handleOpen = () => {

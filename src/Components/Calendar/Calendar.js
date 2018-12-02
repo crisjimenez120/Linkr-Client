@@ -4,7 +4,11 @@ import GroupTable from "../MaterialUI/GroupTable.js"
 import Nav from '../MaterialUI/Nav.js';
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import Button from '@material-ui/core/Button';
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+
+const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const localizer = Calendar.momentLocalizer(moment);
 // takes the JSON date formate and convert into a Date Object
@@ -23,21 +27,8 @@ function reviver(key, value) {
 
 
 
-let tempEvents = [
-
-      // {
-       
-      //   title: 'Grinding Levels on Pidgeys',
-      //   start: new Date(2018, 10, 13, 0 , 0, 0),
-      //   end: new Date(2018, 10, 13, 23, 59, 59),
-      // },
-      // {
-        
-      //   title: 'Beat All The Gyms',
-      //   start: new Date(2018, 10, 15, 3, 0, 0),
-      //   end: new Date(2018, 10, 15, 6, 0, 0),
-      // }
-      ];
+let tempEvents = [];
+let tempGroups = [];
 
 let parseEvents = (tempEvents) =>{
       tempEvents.map(event => {
@@ -66,6 +57,7 @@ class myCalendar extends Component {
     this.state = 
     {
       events: [],
+      groups:[]
     }
   }
     
@@ -82,17 +74,21 @@ class myCalendar extends Component {
           }),
         }).then( res => res.json())
                       //.then( res => console.log(res))
-                      .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
-                      
-  }
+          .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
+          this.getUserGroups()
+              
+   }
+  
 
   //so here we are just waiting for the stack to finish executing to parse the tempevent
   componentDidMount(){
     setTimeout (() => {
       parseEvents(tempEvents);
       this.setState({
-        events : tempEvents
+        events : tempEvents,
+        groups : tempGroups
       })
+      console.log(tempGroups);
     })
   }
 
@@ -119,21 +115,7 @@ class myCalendar extends Component {
 
 
 
-  // handleSelect = ({ start, end }) => {
-  //   const title = window.prompt('Event name')
-  //   if (title)
-  //     this.setState({
-  //       events: [
-  //         ...this.state.events,
-  //         {
-  //           title: title,
-  //           start: start,
-  //           end: end,
-  //         },
-  //       ],
-  //     })
-  //   console.log(JSON.stringify(this.state.events));
-  // }
+
 
   handleSelect = ({ start, end }) => {
       // make a POST request to the backend
@@ -165,7 +147,7 @@ class myCalendar extends Component {
     }
   }
 
-  resizeEvent = ({ event, start, end }) => {
+  onEventResize = ({ event, start, end }) => {
     const { events } = this.state
 
     const nextEvents = events.map(existingEvent => {
@@ -178,8 +160,9 @@ class myCalendar extends Component {
       events: nextEvents,
     })
 
-    alert(`${event.title} was resized to ${start}-${end}`)
+    alert(`${event.id} was resized to ${start}-${end}`)
   }
+
 
   render() {
     return (
@@ -187,14 +170,14 @@ class myCalendar extends Component {
           <Nav user = {this.props.user}/>
             <div className="App" style={{display: "flex"}}>
             
-            <Calendar
+            <DragAndDropCalendar
               selectable
               localizer={localizer}
               defaultDate={new Date(2018, 10, 17)}
               defaultView="month"
               events={this.state.events}
               resizable
-              onEventResize={this.resizeEvent}
+              onEventResize={this.onEventResize}
               style={{ height: "80vh", width: "55vw", margin: 10}}
               eventPropGetter={(this.eventStyleGetter)}
               onSelectEvent={event => alert( event.title)}
