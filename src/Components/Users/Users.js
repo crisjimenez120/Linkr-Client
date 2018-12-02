@@ -1,5 +1,4 @@
 import React from 'react';
-//import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Card from "../MaterialUI/Cards.js"
 import './Users.css';
@@ -13,24 +12,11 @@ class Users extends React.Component  {
 		users:[],
 	}
 
-	
-
-	  	// componentWillMount(){
-	  	// 	 this.getData();
-	  	// }
-
 	componentDidMount(){
 	    fetch('/users/api_all_users').then( res => res.json())
 	                   .then( users => this.setState({ users }));
   	}
 
-  //getData(){
-	    
-		// console.log('Our data is fetched');
-		// this.setState({
-		// 	users: [{id: 999, name:"Loading", role:"loading" }]
-		// }) 
- //}
 	 
 	render(){
 		return(
@@ -40,7 +26,6 @@ class Users extends React.Component  {
 				</div>
 				<Typography variant="h3" color="inherit" noWrap>
               		Friends
-              		
             	</Typography>
             		<Link to={'/Groups'} style={{ textDecoration: 'none', color:'black' }}>
              			  <Button variant="outlined" size="large" color="primary">Add to Group</Button>
@@ -53,17 +38,9 @@ class Users extends React.Component  {
 		          	</div>
 		            <br/>		
 		        </div> 
-		        {// <div className = "Users">        
-		        //   {this.state.users.map( user =>
-		        //     	<Card user = {user}/> 
-		        //     )}		
-		        // </div> 
-		        } 
 		                 
 		    </div>
 	)}
-			
-	
 }
 
 export default Users;

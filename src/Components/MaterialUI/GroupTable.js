@@ -7,6 +7,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import Modal from './Modal'
+import EditGroup from './EditGroup'
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -22,14 +24,6 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, NumberOfMembers) {
-  id += 1;
-  return { id, name, NumberOfMembers };
-}
-
-const rows = [];
-
 function SimpleTable(props) {
   
 
@@ -44,16 +38,17 @@ function SimpleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.groups.map(row => {
+          {props.groups.map(group => {
             return (
-              <TableRow key={row.id}>
+              <TableRow key={group.id}>
                 <TableCell component="th" scope="row">
                 <Link to={'/Users'} style={{ textDecoration: 'none', color:'black' }}>
-                  {row.group_name}
+                  {group.group_name}
+                  <EditGroup group = {group}/>
                 </Link>
                 </TableCell> 
-                <TableCell >Admin: {row.admin}</TableCell> 
-                  <TableCell >{row.group_desc}</TableCell> 
+                <TableCell >Admin: {group.admin}</TableCell> 
+                  <TableCell >{group.group_desc}</TableCell> 
               </TableRow>
             );
           })}

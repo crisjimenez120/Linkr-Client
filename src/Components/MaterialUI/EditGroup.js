@@ -30,28 +30,33 @@ const styles = theme => ({
 });
 
 class SimpleModal extends React.Component {
-  state = {
-    groupName: '',
-    groupDesc: '',
-    open: false,
-  };
-
-  onSubmitModal = () => {
-    console.log(this.state.groupName)
-    console.log(this.state.groupDesc)
-    console.log(this.props.user.email)
-
-    fetch('/groups/api_create_group', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify({
-        groupName: this.state.groupName,
-        groupDesc: this.state.groupDesc,
-        email:this.props.user.email
-      })
-    })
-    
+ 
+  constructor(props) {
+    super(props)
+    this.state = 
+    {
+      users: [],
+      inGroup:[],
+    }
   }
+  componentDidMount(){
+      fetch('/users/api_all_users').then( res => res.json())
+                     .then( users => this.setState({ users }));
+    }
+
+  // onAddUser = () => {
+
+  //   fetch('/groups/api_create_group', {
+  //     method: 'post',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body:JSON.stringify({
+  //       group_id: this.props.group.group_id,
+  //       groupDesc: this.state.groupDesc,
+  //       email:this.props.user.email
+  //     })
+  //   })
+    
+  //}
   
   handleOpen = () => {
     this.setState({ open: true });
@@ -61,17 +66,7 @@ class SimpleModal extends React.Component {
     this.setState({ open: false });
   };
 
-  handleChangeName = e =>{
-    this.setState({
-      groupName: e.target.value
-    });
-  }
-
-  handleChangeDesc = e =>{
-    this.setState({
-      groupDesc: e.target.value
-    });
-  }
+ 
   render() {
     const { classes } = this.props;
 
@@ -85,25 +80,11 @@ class SimpleModal extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="h6" id="modal-title">
-              <TextField
-                label ="Group Name"
-                onChange = {this.handleChangeName}
-              />
-            </Typography>
-            <br/>
-            <br/>
-            <Typography variant="subtitle1" id="simple-modal-description">
-              <TextField
-                label="Group Description"
-                onChange = {this.handleChangeDesc}
-                multiline
-                rows="4"
-                variant="outlined"
-              />
-            </Typography>
-            <br/>
-           <Button variant="outlined" size="small" color="primary" onClick = {this.onSubmitModal}> Submit </Button>
+           <div>       
+              {this.state.users.map( user =>
+                  <Card  user = {user}/> 
+                )}
+            </div>
           </div>
         </Modal>
       </div>
