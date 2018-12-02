@@ -36,9 +36,10 @@ class SimpleModal extends React.Component {
     open: false,
   };
 
-  onSubmitModal = () =>{
+  onSubmitModal = () => {
     console.log(this.state.groupName)
     console.log(this.state.groupDesc)
+    console.log(this.props.user.email)
 
     fetch('/groups/api_create_group', {
       method: 'post',
@@ -46,7 +47,7 @@ class SimpleModal extends React.Component {
       body:JSON.stringify({
         groupName: this.state.groupName,
         groupDesc: this.state.groupDesc,
-        email:this.props.user.emails
+        email:this.props.user.email
       })
     })
     
@@ -60,12 +61,23 @@ class SimpleModal extends React.Component {
     this.setState({ open: false });
   };
 
+  handleChangeName = e =>{
+    this.setState({
+      groupName: e.target.value
+    });
+  }
+
+  handleChangeDesc = e =>{
+    this.setState({
+      groupDesc: e.target.value
+    });
+  }
   render() {
     const { classes } = this.props;
 
     return (
       <div>
-        <Button variant="fab" color="primary" aria-label="Add" mini= "true" onClick={this.onSubmitModal}><AddIcon /></Button>
+        <Button variant="fab" color="primary" aria-label="Add" mini= {true} onClick={this.handleOpen}> <AddIcon /></Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -76,9 +88,8 @@ class SimpleModal extends React.Component {
             <Typography variant="h6" id="modal-title">
               <TextField
                 label ="Group Name"
-                floatingLabelText ="Group Name"
-                onChange ={console.log("hi")}
-                //defaultValue = {}
+                onChange = {this.handleChangeName}
+                // floatingLabelText ="Group Name"
               />
             </Typography>
             <br/>
@@ -86,15 +97,15 @@ class SimpleModal extends React.Component {
             <Typography variant="subtitle1" id="simple-modal-description">
               <TextField
                 label="Group Description"
+                onChange = {this.handleChangeDesc}
                 multiline
                 rows="4"
                 variant="outlined"
-                //onChange ={handleChange('eventDescription')}
-                //defaultValue = {values.eventDescription}
+               
               />
             </Typography>
             <br/>
-           <Button variant="outlined" size="small" color="primary" onClick = {this.onSubmitSignIn} >Submit</Button>
+           <Button variant="outlined" size="small" color="primary" onClick = {this.onSubmitModal}> Submit </Button>
           </div>
         </Modal>
       </div>

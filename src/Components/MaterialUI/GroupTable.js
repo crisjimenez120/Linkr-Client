@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -33,12 +31,12 @@ function createData(name, NumberOfMembers) {
 const rows = [];
 
 function SimpleTable(props) {
-  const { classes } = props;
+  
 
   return (
     <div>
-    <Paper className={classes.root} style={{ width: "50vw" ,display: "flex", justifyContent: "center"}}>
-      <Table className={classes.table}>
+    <Paper style={{ width: "50vw" ,display: "flex", justifyContent: "center"}}>
+      <Table >
         <TableHead>
           <TableRow>
             <TableCell>Groups</TableCell>
@@ -62,13 +60,11 @@ function SimpleTable(props) {
         </TableBody>
       </Table>
     </Paper>
-    <Modal/>
+    <Modal user = {props.user}/>
     </div>
   );
 }
 
-SimpleTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(SimpleTable);
+
+export default (SimpleTable);
