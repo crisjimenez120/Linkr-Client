@@ -30,19 +30,7 @@ function createData(name, NumberOfMembers) {
   return { id, name, NumberOfMembers };
 }
 
-const rows = [
-  createData('BrOliC BoYz ಠ_ಠ', 4),
-  createData('PowerPuff Girls', 159, ),
-  createData('Teenage Mutant Ninja Turtles', 237),
-  createData('Aerosmith', 262 ),
-  createData('The Avengers', 305),
-  createData('Thunder Cats', 50),
-  createData('Suicide Squad', 10),
-  createData('Justice League', 43),
-  createData('Teen Titans', 3),
-  createData('Spice Girls', 50),
-  createData('Backstreet Boys', 83),
-];
+const rows = [];
 
 function SimpleTable(props) {
   const { classes } = props;
@@ -58,15 +46,16 @@ function SimpleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => {
+          {this.props.groups.map(row => {
             return (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                 <Link to={'/Users'} style={{ textDecoration: 'none', color:'black' }}>
-                  {row.name}
+                  {row.group_name}
                 </Link>
                 </TableCell> 
-                  <TableCell numeric>{row.NumberOfMembers}</TableCell> 
+                <TableCell >Admin: {row.admin}</TableCell> 
+                  <TableCell >{row.group_desc}</TableCell> 
               </TableRow>
             );
           })}

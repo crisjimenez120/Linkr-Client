@@ -209,7 +209,7 @@ class myCalendar extends Component {
               onSelectSlot={this.handleSelect}
             />
 
-           <GroupTable />
+           <GroupTable groups = {this.state.groups}/>
             
 
             </div>
