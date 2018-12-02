@@ -78,7 +78,21 @@ class myCalendar extends Component {
           this.getUserGroups()
               
    }
-  
+  getUserGroups(){
+      fetch('/groups/api_all_groups_single_user', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify({
+            user_email: this.props.user.email
+          }),
+        }).then( res => res.json())
+        //.then( res => console.log(res))
+          .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
+                      
+  }
 
   //so here we are just waiting for the stack to finish executing to parse the tempevent
   componentDidMount(){
