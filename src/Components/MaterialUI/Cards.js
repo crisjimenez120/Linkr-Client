@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 
 const styles = {
@@ -29,22 +29,19 @@ function SimpleCard(props) {
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
          {/*user.title*/}
-         Admin
+         
         </Typography>
         <Typography variant="h5" component="h2">
-          {user.name}
+          {user.user_name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           {user.email}
         </Typography>
         <Typography component="p">
-          Blah Blah Blah
-          <br />
-          {'"More Blah"'}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="outlined" size="small" color="primary" fullWidth="true" >Delete</Button>
+        {/*<Button variant="outlined" size="small" color="primary" fullWidth={true} >Delete</Button>*/}
       </CardActions>
     </Card>
   );

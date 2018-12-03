@@ -5,24 +5,24 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import Modal from './Modal'
 import EditGroup from './EditGroup'
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit *3,
-    //overflowX: 'auto',
-    //display: 'flex',
-    //justifyContent: 'right',
-    margin: 10
-  },
-  table: {
-    minWidth: 100,
+// const styles = theme => ({
+//   root: {
+//     width: '100%',
+//     marginTop: theme.spacing.unit *3,
+//     //overflowX: 'auto',
+//     //display: 'flex',
+//     //justifyContent: 'right',
+//     margin: 10
+//   },
+//   table: {
+//     minWidth: 100,
     
-  },
-});
+//   },
+// });
 
 function SimpleTable(props) {
   
@@ -42,10 +42,10 @@ function SimpleTable(props) {
             return (
               <TableRow key={group.id}>
                 <TableCell component="th" scope="row">
-                <Link to={'/Users'} style={{ textDecoration: 'none', color:'black' }}>
+                
                   {group.group_name}
                   <EditGroup group = {group}/>
-                </Link>
+            
                 </TableCell> 
                 <TableCell >Admin: {group.admin}</TableCell> 
                   <TableCell >{group.group_desc}</TableCell> 

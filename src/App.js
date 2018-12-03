@@ -10,9 +10,10 @@ import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"
 import './App.css';
 import { Switch, 
          Route,
-         Link,
+ //        Link,
          Redirect,
-         withRouter} from 'react-router-dom'
+ //        withRouter
+       } from 'react-router-dom'
 
 
 const Auth = {

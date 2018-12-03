@@ -5,7 +5,7 @@ import Nav from '../MaterialUI/Nav.js';
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -32,7 +32,6 @@ let tempGroups = [];
 
 let parseEvents = (tempEvents) =>{
       tempEvents.map(event => {
-
         let startTemp = event.start.substring(0, 19);
         startTemp += 'Z'
         const startText = `{ "start": "${startTemp}" }`;
@@ -165,7 +164,7 @@ class myCalendar extends Component {
     const { events } = this.state
 
     const nextEvents = events.map(existingEvent => {
-      return existingEvent.id == event.id
+      return existingEvent.id === event.id
         ? { ...existingEvent, start, end }
         : existingEvent
     })
