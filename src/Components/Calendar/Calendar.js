@@ -5,6 +5,7 @@ import Nav from '../MaterialUI/Nav.js';
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { Spring } from 'react-spring';
 import Button from '@material-ui/core/Button';
@@ -32,7 +33,6 @@ let tempGroups = [];
 
 let parseEvents = (tempEvents) =>{
       tempEvents.map(event => {
-
         let startTemp = event.start.substring(0, 19);
         startTemp += 'Z'
         const startText = `{ "start": "${startTemp}" }`;
