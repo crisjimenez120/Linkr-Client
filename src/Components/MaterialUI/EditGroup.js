@@ -126,7 +126,7 @@ class SimpleModal extends React.Component {
            <Scrollable>
            <div>       
               {this.state.users.map( user =>
-                <div>
+                <div key = {user.id}>
                   <Card  user = {user}/> 
                   {this.compare(user.email) === false ? <Button variant="outlined" size="small" color="primary" fullWidth={true} onClick={() => { this.onAddUser(user.email)}}>Add</Button> :
                   <Button variant="outlined" size="small" color="secondary" fullWidth={true} onClick = {() => {this.onDeleteUser(user.email)}} >Delete</Button>}

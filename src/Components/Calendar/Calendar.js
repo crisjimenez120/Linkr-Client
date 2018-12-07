@@ -26,13 +26,14 @@ function reviver(key, value) {
 
  
 
-
+let idNum = 16;
 
 let tempEvents = [];
 let tempGroups = [];
+let tempGroupEvents = [];
 
-let parseEvents = (tempEvents) =>{
-      tempEvents.map(event => {
+let parseEvents = (Events) =>{
+      Events.map(event => {
         let startTemp = event.start.substring(0, 19);
         startTemp += 'Z'
         const startText = `{ "start": "${startTemp}" }`;
@@ -59,6 +60,7 @@ class myCalendar extends Component {
       events: [],
       groupEvents: [],
       groups: [],
+      selectedGroup: [],
       showGroupEvents: true
     }
   }
@@ -78,6 +80,7 @@ class myCalendar extends Component {
                       //.then( res => console.log(res))
           .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
           this.getUserGroups()
+          this.getGroupEvents()
               
    }
   getUserGroups(){
@@ -100,11 +103,13 @@ class myCalendar extends Component {
   componentDidMount(){
     setTimeout (() => {
       parseEvents(tempEvents);
+      parseEvents(tempGroupEvents);
       this.setState({
         events : tempEvents,
-        groups : tempGroups
+        groups : tempGroups,
+        groupEvents : tempGroupEvents
       })
-      console.log(tempGroups);
+      console.log(tempGroupEvents);
     })
   }
 
@@ -162,11 +167,34 @@ class myCalendar extends Component {
       })
     }
   }
-  onToggleCalendar(){
-    this.setState({
-      showGroupEvents: !this.state.showGroupEvents
-    });
+
+  getGroupEvents = id => {
+      fetch('/groups/api_get_all_events_for_group', {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify({
+              group_id: 16,
+            }),
+          }).then( res => res.json())
+           .then( event => {for(let i = 0; i < event.length; i++){tempGroupEvents.push(event[i])}})
   }
+
+  onToggleCalendar = id =>{
+    //this.getGroupEvents(id);
+    // setTimeout (() => {
+    //   parseEvents(tempGroupEvents);
+       this.setState({
+        showGroupEvents: !this.state.showGroupEvents,
+    //     groupEvents : tempGroupEvents,
+       });
+    // })
+  }
+  
+
+
+  
   onEventResize = ({ event, start, end }) => {
     const { events } = this.state
 
@@ -178,6 +206,7 @@ class myCalendar extends Component {
 
     this.setState({
       events: nextEvents,
+
     })
 
     fetch('/events/api_update_event', {
@@ -210,7 +239,7 @@ class myCalendar extends Component {
               items={this.state.showGroupEvents}
               from={{opacity: 0,}}
               enter={{ opacity: 1,}}
-              leave={{ position: 'absolute',opacity: 0,}}>
+              leave={{ position: 'absolute', opacity: 0,}}>
               {toggle =>
                 toggle
                   ? props => 
@@ -241,9 +270,8 @@ class myCalendar extends Component {
                       onEventResize={this.onEventResize}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
                       eventPropGetter={(this.eventStyleGetter)}
-                      onSelectEvent={event => alert( event.title)}
+                      onSelectEvent={event => alert( `${event.user_email} has the event: ${event.title} `)}
                       onSelectSlot={this.handleSelect}
-
                     /></div>}
             </Transition>
              <Spring
@@ -257,8 +285,8 @@ class myCalendar extends Component {
 
             </div>
 
-          
-            <Button  size="small" color="primary" onClick = {() => {this.onToggleCalendar()}} >Toggle:</Button>
+            
+            <Button  size="small" color="primary" onClick = {() => {this.onToggleCalendar({idNum})}} >Toggle:</Button>
 
 
             

@@ -1,65 +1,88 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
+
 //import { Link } from 'react-router-dom';
 import Modal from './Modal'
 import EditGroup from './EditGroup'
 
-// const styles = theme => ({
-//   root: {
-//     width: '100%',
-//     marginTop: theme.spacing.unit *3,
-//     //overflowX: 'auto',
-//     //display: 'flex',
-//     //justifyContent: 'right',
-//     margin: 10
-//   },
-//   table: {
-//     minWidth: 100,
-    
-//   },
-// });
 
-function SimpleTable(props) {
-  
+const styles = theme => ({
+  root: {
+    width: '43vw',
+    backgroundColor: theme.palette.background.paper,
+  },
+});
 
-  return (
-    <div>
-    <Paper style={{ width: "50vw" ,display: "flex", justifyContent: "center"}}>
-      <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell>Groups</TableCell>
-            <TableCell numeric>Number Of Members</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.groups.map(group => {
-            return (
-              <TableRow key={group.id}>
-                <TableCell component="th" scope="row">
-                
-                  {group.group_name}
-                  <EditGroup group = {group}/>
-            
-                </TableCell> 
-                <TableCell >Admin: {group.admin}</TableCell> 
-                  <TableCell >{group.group_desc}</TableCell> 
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-    <Modal user = {props.user}/>
-    </div>
-  );
+
+
+
+
+
+class CheckboxList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      checked: [0],
+    }
+  }
+ 
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked,
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div >
+      <List className={classes.root}>
+        {this.props.groups.map(group => (
+          <ListItem key={group.id} role={undefined} dense button onClick={this.handleToggle(group)}>
+            <Checkbox
+              checked={this.state.checked.indexOf(group) !== -1}
+              tabIndex={-1}
+              disableRipple
+            />
+            <ListItemText primary={group.group_name} />
+            <ListItemSecondaryAction>
+              <IconButton aria-label="Comments">
+                <EditGroup group = {group}/>
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+       <Modal user = {this.props.user}/>
+       </div>
+    );
+  }
 }
 
 
 
-export default (SimpleTable);
+
+CheckboxList.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CheckboxList);
