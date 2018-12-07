@@ -22,24 +22,24 @@ class SignIn extends React.Component  {
 		this.setState({password: event.target.value})
 	}
 	onSubmitSignIn = () =>{
-		console.log(this.state.event)
-		console.log(this.state.password)
+		// console.log(this.state.event)
+		// console.log(this.state.password)
 
-		fetch('/signin/api_signin', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body:JSON.stringify({
-				email:this.state.email,
-				password: this.state.password
-			})
-		}).then(response => response.json())
-		.then(user => {
-			if(user.email){
-				console.log("sending back the user");
-				this.props.loadUser(user);
-				this.props.authenticate(true);
-			}
-		})
+		// fetch('/signin/api_signin', {
+		// 	method: 'post',
+		// 	headers: {'Content-Type': 'application/json'},
+		// 	body:JSON.stringify({
+		// 		email:this.state.email,
+		// 		password: this.state.password
+		// 	})
+		// }).then(response => response.json())
+		// .then(user => {
+		// 	if(user.email){
+		// 		console.log("sending back the user");
+		// 		this.props.loadUser(user);
+		 		this.props.authenticate(true);
+		// 	}
+		// })
 	}
 	
 	render(){

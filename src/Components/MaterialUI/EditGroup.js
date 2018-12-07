@@ -6,7 +6,7 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
-
+import Card from './Cards';
 
 function getModalStyle() {
   const top = 50 
@@ -39,10 +39,10 @@ class SimpleModal extends React.Component {
       inGroup:[],
     }
   }
-  componentDidMount(){
-      fetch('/users/api_all_users').then( res => res.json())
-                     .then( users => this.setState({ users }));
-    }
+  // componentDidMount(){
+  //     fetch('/users/api_all_users').then( res => res.json())
+  //                    .then( users => this.setState({ users }));
+  //   }
 
   // onAddUser = () => {
 

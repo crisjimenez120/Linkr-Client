@@ -16,7 +16,7 @@ import { Switch,
 
 
 const Auth = {
-  isAuthenticated: false,
+  isAuthenticated: true,
 }
 
 function PrivateRoute({ component: Component, ...rest }) {
@@ -46,9 +46,9 @@ constructor(){
     this.state = {
       isSignedIn: Auth.isAuthenticated,
       user:{
-          id:'',
-          name:'',
-          email:'',
+          id:'1',
+          name:'Cris',
+          email:'cris@email.com',
       }
     }
   }

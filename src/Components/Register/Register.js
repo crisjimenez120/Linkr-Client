@@ -30,21 +30,21 @@ class Register extends React.Component  {
 	}
 
 	onSubmitSignIn = () =>{
-		fetch('/registration/api_registration', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body:JSON.stringify({
-				name: this.state.name,
-				email:this.state.email,
-				password: this.state.password
-			})
-		}).then(response => response.json())
-		.then(user => {
-			if(user.id){
-				this.props.loadUser(user);
-				this.props.authenticate(true);
-			}
-		})
+		// fetch('/registration/api_registration', {
+		// 	method: 'post',
+		// 	headers: {'Content-Type': 'application/json'},
+		// 	body:JSON.stringify({
+		// 		name: this.state.name,
+		// 		email:this.state.email,
+		// 		password: this.state.password
+		// 	})
+		// }).then(response => response.json())
+		// .then(user => {
+		// 	if(user.id){
+		// 		this.props.loadUser(user);
+		 		this.props.authenticate(true);
+		// 	}
+		// })
 	}
 	
 	render(){
