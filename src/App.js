@@ -47,9 +47,9 @@ constructor(){
     this.state = {
       isSignedIn: Auth.isAuthenticated,
       user:{
-          id:'1',
-          name:'Cris',
-          email:'cris@email.com',
+          id:'',
+          name:'',
+          email:'',
       }
     }
   }
@@ -66,7 +66,6 @@ loadUser = (data) => {
 
 authenticate = (e) =>{
   Auth.isAuthenticated = e
-
 }
 
 

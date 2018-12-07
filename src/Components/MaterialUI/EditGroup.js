@@ -48,12 +48,7 @@ class SimpleModal extends React.Component {
       open: false,
     }
   }
-<<<<<<< HEAD
-  // componentDidMount(){
-  //     fetch('/users/api_all_users').then( res => res.json())
-  //                    .then( users => this.setState({ users }));
-  //   }
-=======
+ 
   componentDidMount(){
       this.getAllUsers();
     }
@@ -84,7 +79,6 @@ class SimpleModal extends React.Component {
         })
       })
     }
->>>>>>> a7e356a193fce32a26c8d4609f5fcff9e53e9232
 
   compare = (email) => {
     let flag = false;

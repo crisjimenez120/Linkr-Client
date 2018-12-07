@@ -12,10 +12,10 @@ class Users extends React.Component  {
 		users:[],
 	}
 
-	// componentDidMount(){
-	//     fetch('/users/api_all_users').then( res => res.json())
-	//                    .then( users => this.setState({ users }));
- //  	}
+	componentDidMount(){
+	    fetch('/users/api_all_users').then( res => res.json())
+	                   .then( users => this.setState({ users }));
+  	}
 
 	 
 	render(){

@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { Spring } from 'react-spring';
+import { Spring, Transition } from 'react-spring';
 import Button from '@material-ui/core/Button';
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
@@ -57,53 +57,55 @@ class myCalendar extends Component {
     this.state = 
     {
       events: [],
-      groups: []
+      groupEvents: [],
+      groups: [],
+      showGroupEvents: true
     }
   }
     
   //Every time the component mounts we are pushing event event into a temp event array
   componentWillMount(){
-      // fetch('/events/api_events', {
-      //     method: "POST", // *GET, POST, PUT, DELETE, etc.
-      //     headers: {
-      //         "Content-Type": "application/json; charset=utf-8",
-      //         // "Content-Type": "application/x-www-form-urlencoded",
-      //     },
-      //     body: JSON.stringify({
-      //       user_email: this.props.user.email
-      //     }),
-      //   }).then( res => res.json())
-      //                 //.then( res => console.log(res))
-      //     .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
-      //     this.getUserGroups()
+      fetch('/events/api_events', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify({
+            user_email: this.props.user.email
+          }),
+        }).then( res => res.json())
+                      //.then( res => console.log(res))
+          .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
+          this.getUserGroups()
               
    }
   getUserGroups(){
-      // fetch('/groups/api_all_groups_single_user', {
-      //     method: "POST", // *GET, POST, PUT, DELETE, etc.
-      //     headers: {
-      //         "Content-Type": "application/json; charset=utf-8",
-      //         // "Content-Type": "application/x-www-form-urlencoded",
-      //     },
-      //     body: JSON.stringify({
-      //       user_email: this.props.user.email
-      //     }),
-      //   }).then( res => res.json())
-      //   //.then( groups => console.log(groups))
-      //   .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
+      fetch('/groups/api_all_groups_single_user', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify({
+            user_email: this.props.user.email
+          }),
+        }).then( res => res.json())
+        //.then( groups => console.log(groups))
+        .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
                       
   }
 
   //so here we are just waiting for the stack to finish executing to parse the tempevent
   componentDidMount(){
-    // setTimeout (() => {
-    //   parseEvents(tempEvents);
-    //   this.setState({
-    //     events : tempEvents,
-    //     groups : tempGroups
-    //   })
-    //   console.log(tempGroups);
-    // })
+    setTimeout (() => {
+      parseEvents(tempEvents);
+      this.setState({
+        events : tempEvents,
+        groups : tempGroups
+      })
+      console.log(tempGroups);
+    })
   }
 
     
@@ -135,19 +137,19 @@ class myCalendar extends Component {
       // make a POST request to the backend
       const title = window.prompt('Event name')
        if (title){
-        // fetch('/events/api_create_event', {
-        //   method: "POST", // *GET, POST, PUT, DELETE, etc.
-        //   headers: {
-        //       "Content-Type": "application/json; charset=utf-8",
-        //   },
-        //   body: JSON.stringify({
-        //     title: title,
-        //     start: start,
-        //     end: end,
-        //     user_email: this.props.user.email
-        //   }),
-        // })//.then(res=>res.json())
-        //   .then(res => console.log(res));
+        fetch('/events/api_create_event', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify({
+            title: title,
+            start: start,
+            end: end,
+            user_email: this.props.user.email
+          }),
+        })//.then(res=>res.json())
+          .then(res => console.log(res));
         this.setState({
         events: [
           ...this.state.events,
@@ -160,7 +162,11 @@ class myCalendar extends Component {
       })
     }
   }
-
+  onToggleCalendar(){
+    this.setState({
+      showGroupEvents: !this.state.showGroupEvents
+    });
+  }
   onEventResize = ({ event, start, end }) => {
     const { events } = this.state
 
@@ -174,18 +180,18 @@ class myCalendar extends Component {
       events: nextEvents,
     })
 
-    // fetch('/events/api_update_event', {
-    //       method: "PUT", // *GET, POST, PUT, DELETE, etc.
-    //       headers: {
-    //           "Content-Type": "application/json; charset=utf-8",
-    //       },
-    //       body: JSON.stringify({
-    //         title: event.title,
-    //         start: start,
-    //         end: end,
-    //         id: event.id
-    //       }),
-    //     })
+    fetch('/events/api_update_event', {
+          method: "PUT", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify({
+            title: event.title,
+            start: start,
+            end: end,
+            id: event.id
+          }),
+        })
   }
 
 // <Spring
@@ -193,43 +199,66 @@ class myCalendar extends Component {
 //   to={{ opacity: 1 }}>
 //   {props => }
 // </Spring>
+
   render() {
     return (
      <div>
           <Nav user = {this.props.user}/>
-            <div className="App" style={{display: "flex"}} >
-            <Spring
-              from={{ opacity: 0 }}
-              to={{ opacity: 1 }}>
-              {props => 
-              <div style = {props}>
-                <DragAndDropCalendar
-                  selectable
-                  localizer={localizer}
-                  defaultDate={new Date(2018, 10, 17)}
-                  defaultView="month"
-                  events={this.state.events}
-                  resizable
-                  onEventResize={this.onEventResize}
-                  style={{ height: "80vh", width: "55vw", margin: 10}}
-                  eventPropGetter={(this.eventStyleGetter)}
-                  onSelectEvent={event => alert( event.title)}
-                  onSelectSlot={this.handleSelect}
+            <div className="App" style={{display: "flex"}}>
 
-                />
-              </div>}
-            </Spring>
-            <Spring
-              from={{ opacity: 0 }}
+            <Transition
+              items={this.state.showGroupEvents}
+              from={{opacity: 0,}}
+              enter={{ opacity: 1,}}
+              leave={{ position: 'absolute',opacity: 0,}}>
+              {toggle =>
+                toggle
+                  ? props => 
+                  <div style = {props}>
+                    <DragAndDropCalendar
+                      selectable
+                      localizer={localizer}
+                      defaultDate={new Date(2018, 10, 17)}
+                      defaultView="month"
+                      events={this.state.events}
+                      resizable
+                      onEventResize={this.onEventResize}
+                      style={{ height: "80vh", width: "55vw", margin: 10}}
+                      eventPropGetter={(this.eventStyleGetter)}
+                      onSelectEvent={event => alert( event.title)}
+                      onSelectSlot={this.handleSelect}
+
+                    /></div>
+                  : props => 
+                  <div style = {props}>
+                    <DragAndDropCalendar
+                      selectable
+                      localizer={localizer}
+                      defaultDate={new Date(2018, 10, 17)}
+                      defaultView="month"
+                      events={this.state.groupEvents}
+                      resizable
+                      onEventResize={this.onEventResize}
+                      style={{ height: "80vh", width: "55vw", margin: 10}}
+                      eventPropGetter={(this.eventStyleGetter)}
+                      onSelectEvent={event => alert( event.title)}
+                      onSelectSlot={this.handleSelect}
+
+                    /></div>}
+            </Transition>
+             <Spring
+              from={{float: 'left', opacity: 0 }}
               to={{ opacity: 1 }}>
               {props => <div style = {props}>
                            <GroupTable groups = {this.state.groups} user = {this.props.user}/>
                           </div>}
             </Spring>
-
               
 
             </div>
+
+          
+            <Button  size="small" color="primary" onClick = {() => {this.onToggleCalendar()}} >Toggle:</Button>
 
 
             

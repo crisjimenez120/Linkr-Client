@@ -25,21 +25,21 @@ class SignIn extends React.Component  {
 		// console.log(this.state.event)
 		// console.log(this.state.password)
 
-		// fetch('/signin/api_signin', {
-		// 	method: 'post',
-		// 	headers: {'Content-Type': 'application/json'},
-		// 	body:JSON.stringify({
-		// 		email:this.state.email,
-		// 		password: this.state.password
-		// 	})
-		// }).then(response => response.json())
-		// .then(user => {
-		// 	if(user.email){
-		// 		console.log("sending back the user");
-		// 		this.props.loadUser(user);
+		fetch('/signin/api_signin', {
+			method: 'post',
+			headers: {'Content-Type': 'application/json'},
+			body:JSON.stringify({
+				email:this.state.email,
+				password: this.state.password
+			})
+		}).then(response => response.json())
+		.then(user => {
+			if(user.email){
+				console.log("sending back the user");
+				this.props.loadUser(user);
 		 		this.props.authenticate(true);
-		// 	}
-		// })
+			}
+		})
 	}
 	
 	render(){
