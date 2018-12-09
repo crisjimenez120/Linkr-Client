@@ -3,17 +3,20 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
+import User from '../User';
 
-
-class SignIn extends React.Component  {
+class Register extends React.Component  {
 	constructor(props){
-		super();
-		this.state = {
+	    super();
+	    this.state = {
+	      user:{
+	        name: '',
 			email: '',
 			password: '',
 			isRedirecting: false
-		}
-	}
+	      }
+   	 }
+  }
 
 	onEmailChange= (event) =>{
 		//console.log(event.target.value)
@@ -23,27 +26,32 @@ class SignIn extends React.Component  {
 		//console.log(event.target.value)
 		this.setState({password: event.target.value})
 	}
-	onSubmitSignIn = () =>{
-		// console.log(this.state.event)
-		// console.log(this.state.password)
+	onNameChange= (event) =>{
+		//console.log(event.target.value)
+		this.setState({name: event.target.value})
+	}
 
-		fetch('/signin/api_signin', {
+	onSubmitSignIn = () =>{
+		fetch('/registration/api_registration', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body:JSON.stringify({
+				name: this.state.name,
 				email:this.state.email,
 				password: this.state.password
 			})
 		}).then(response => response.json())
 		.then(user => {
-			if(user.email){
-				console.log("sending back the user");
-				this.props.loadUser(user);
-		 		this.props.authenticate(true);
-		 		// this.setState({
-		 		// 	isRedirecting: true
-		 		// })
+			if(user.id){
+				let loadUser = (data) => {
+				User.setName(data.user_name);
+				User.setID(data.id);
+				User.setEmail(data.email);
+		 		this.setState({
+		 			isRedirecting: true
+		 		})
 			}
+		}
 		})
 	}
 	
@@ -56,44 +64,46 @@ class SignIn extends React.Component  {
 			<div>
 			<Typography variant="h3" color="inherit" noWrap>
               Linkr
-            
-            </Typography>
-            
-			</div>
-			<div>
+              
+              </Typography>
+              <div>
 				<TextField
-		          //id="outlined-with-placeholder"
+		          id="outlined-with-placeholder"
+		          label="Enter Name"
+		          placeholder="Name"
+		          margin="normal"
+		          variant="outlined"
+		          onChange={this.onNameChange}
+		        />
+			</div> 
+            
+				<TextField
+		          id="outlined-with-placeholder"
 		          label="Enter Email"
 		          placeholder="Email"
 		          margin="normal"
-		          type ="text"
 		          variant="outlined"
 		          onChange={this.onEmailChange}
 		        />
 			</div> 
 			<div>
 				<TextField
-          		  id="outlined-adornment-password"
+		          id="outlined-with-placeholder"
 		          label="Enter Password"
 		          placeholder="Password"
-		          //type = "password"
+		          type = "password"
 		          margin="normal"
 		          variant="outlined"
-
 		          onChange = {this.onPasswordChange}
 		        />
 			</div> 
 			<div>
-			<div>
-				<Button variant="outlined" size="large" color="primary" onClick = {() => this.onSubmitSignIn()} style = {{margin: 10}}> LOG IN </Button>
-				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Calendar </Button>
-				</Link>
+				<div>
+					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>
 				</div>
-				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Register </Button>
+				<Link to={'/'} style={{ textDecoration: 'none' }}>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go to Sign In </Button>
 				</Link>
-				
 			</div> 
 		 </div>
 	)}
@@ -102,4 +112,4 @@ class SignIn extends React.Component  {
 }
 
 
-export default SignIn;
+export default Register;
