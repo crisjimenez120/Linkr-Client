@@ -2,7 +2,7 @@
 CUNY Tech Prep Full Stack Project 
 
 
-## Frontend [Source Code](https://github.com/crisjimenez120/Linkr-Client)
+## Frontend `(` [Source Code](https://github.com/crisjimenez120/Linkr-Client) `)`
 Cristopher Jimenez [Source Code](https://github.com/crisjimenez120/Linkr-Client)
 
 ## Backend [Source Code](https://github.com/crisjimenez120/Linkr-server) 
