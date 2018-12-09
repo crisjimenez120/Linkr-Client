@@ -16,7 +16,7 @@ class SimpleAppBar extends React.Component{
         <Toolbar>
           <div style={{display: "flex", margin: 10}}>
           <Typography variant="h3" color="textSecondary" style={{ marginRight: "30vw"}}>
-            Linker
+            Linkr
           </Typography>
           <Typography variant="h3" color="textSecondary" >
             {this.props.user.name}

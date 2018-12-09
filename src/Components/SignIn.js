@@ -2,7 +2,8 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
 
 class SignIn extends React.Component  {
 	constructor(props){
@@ -10,6 +11,7 @@ class SignIn extends React.Component  {
 		this.state = {
 			email: '',
 			password: '',
+			isRedirecting: false
 		}
 	}
 
@@ -36,13 +38,19 @@ class SignIn extends React.Component  {
 		.then(user => {
 			if(user.email){
 				console.log("sending back the user");
-				this.props.loadUser(user);
-		 		this.props.authenticate(true);
+				//this.props.loadUser(user);
+		 		//this.props.authenticate(true);
+		 		this.setState({
+		 			isRedirecting: true
+		 		})
 			}
 		})
 	}
 	
 	render(){
+		if(this.state.isRedirecting){
+			return <Redirect to ='/Calendar'/> 
+		}
 		return(
 		<div>
 			<div>
@@ -77,7 +85,7 @@ class SignIn extends React.Component  {
 			</div> 
 			<div>
 			<div>
-				<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn} style = {{margin: 10}}> LOG ME IN </Button>
+				<Button variant="outlined" size="large" color="primary" onClick = {() => this.onSubmitSignIn()} style = {{margin: 10}}> LOG IN </Button>
 				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Calendar </Button>
 				</Link>

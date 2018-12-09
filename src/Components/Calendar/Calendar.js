@@ -151,7 +151,8 @@ class myCalendar extends Component {
             title: title,
             start: start,
             end: end,
-            user_email: this.props.user.email
+            user_email: this.props.user.email,
+            user_name: this.props.user.name
           }),
         })//.then(res=>res.json())
           .then(res => console.log(res));
@@ -175,7 +176,7 @@ class myCalendar extends Component {
                 "Content-Type": "application/json; charset=utf-8",
             },
             body: JSON.stringify({
-              group_id: 16,
+              group_id: 28,
             }),
           }).then( res => res.json())
            .then( event => {for(let i = 0; i < event.length; i++){tempGroupEvents.push(event[i])}})
@@ -247,7 +248,7 @@ class myCalendar extends Component {
                     <DragAndDropCalendar
                       selectable
                       localizer={localizer}
-                      defaultDate={new Date(2018, 10, 17)}
+                      defaultDate={new Date()}
                       defaultView="month"
                       events={this.state.events}
                       resizable
@@ -263,14 +264,14 @@ class myCalendar extends Component {
                     <DragAndDropCalendar
                       selectable
                       localizer={localizer}
-                      defaultDate={new Date(2018, 10, 17)}
+                      defaultDate={new Date()}
                       defaultView="month"
                       events={this.state.groupEvents}
                       resizable
                       onEventResize={this.onEventResize}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
                       eventPropGetter={(this.eventStyleGetter)}
-                      onSelectEvent={event => alert( `${event.user_email} has the event: ${event.title} `)}
+                      onSelectEvent={event => alert( `${event.user_name} has the event: ${event.title} `)}
                       onSelectSlot={this.handleSelect}
                     /></div>}
             </Transition>
