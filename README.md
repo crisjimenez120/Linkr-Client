@@ -15,7 +15,10 @@ Have you ever found yourself free one day, then you hit up your friends to go se
 
 ## Features
 * Creating Events
+
 blah
+
+![](test_gif_2.gif)
 
 * Creating groups
 blah blah 
