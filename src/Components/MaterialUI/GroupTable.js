@@ -64,11 +64,10 @@ class CheckboxList extends React.Component {
               disableRipple
             />
             <ListItemText primary={group.group_name} />
-            <ListItemSecondaryAction>
-              <IconButton aria-label="Comments">
+           
+              
                 <EditGroup group = {group}/>
-              </IconButton>
-            </ListItemSecondaryAction>
+           
           </ListItem>
         ))}
       </List>

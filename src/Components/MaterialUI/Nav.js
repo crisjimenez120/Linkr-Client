@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 class SimpleAppBar extends React.Component{
  
+  
 
   render(){
     return(
@@ -19,7 +20,7 @@ class SimpleAppBar extends React.Component{
             Linkr
           </Typography>
           <Typography variant="h3" color="textSecondary" >
-            {this.props.user.name}
+            {this.props.user}
           </Typography>
           </div>
         </Toolbar>

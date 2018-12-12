@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { Spring, Transition } from 'react-spring';
+import { Spring, Transition,animated } from 'react-spring';
 import Button from '@material-ui/core/Button';
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
@@ -67,23 +67,12 @@ class myCalendar extends Component {
     
   //Every time the component mounts we are pushing event event into a temp event array
   componentWillMount(){
-      fetch('/events/api_events', {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          headers: {
-              "Content-Type": "application/json; charset=utf-8",
-              // "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: JSON.stringify({
-            user_email: this.props.user.email
-          }),
-        }).then( res => res.json())
-                      //.then( res => console.log(res))
-          .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
-          this.getUserGroups()
-          this.getGroupEvents()
+     
               
    }
   getUserGroups(){
+        console.log("getUserGroups")
+
       fetch('/groups/api_all_groups_single_user', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           headers: {
@@ -101,6 +90,21 @@ class myCalendar extends Component {
 
   //so here we are just waiting for the stack to finish executing to parse the tempevent
   componentDidMount(){
+    console.log("mounting")
+     fetch('/events/api_events', {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify({
+            user_email: this.props.user.email
+          }),
+        }).then( res => res.json())
+                      //.then( res => console.log(res))
+          .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
+          this.getUserGroups()
+          this.getGroupEvents()
     setTimeout (() => {
       parseEvents(tempEvents);
       parseEvents(tempGroupEvents);
@@ -176,7 +180,7 @@ class myCalendar extends Component {
                 "Content-Type": "application/json; charset=utf-8",
             },
             body: JSON.stringify({
-              group_id: 28,
+              group_id: 1,
             }),
           }).then( res => res.json())
            .then( event => {for(let i = 0; i < event.length; i++){tempGroupEvents.push(event[i])}})
@@ -224,19 +228,19 @@ class myCalendar extends Component {
         })
   }
 
-// <Spring
-//   from={{ opacity: 0 }}
-//   to={{ opacity: 1 }}>
-//   {props => }
-// </Spring>
+
 
   render() {
     return (
      <div>
-          <Nav user = {this.props.user}/>
+
+          <Nav user = {this.props.user.name}/>
+            
             <div className="App" style={{display: "flex"}}>
 
             <Transition
+              native
+              force
               items={this.state.showGroupEvents}
               from={{opacity: 0,}}
               enter={{ opacity: 1,}}
@@ -244,43 +248,40 @@ class myCalendar extends Component {
               {toggle =>
                 toggle
                   ? props => 
-                  <div style = {props}>
+                  <animated.div style = {props}>
                     <DragAndDropCalendar
                       selectable
                       localizer={localizer}
                       defaultDate={new Date()}
-                      defaultView="month"
+                      //defaultView="month"
                       events={this.state.events}
                       resizable
                       onEventResize={this.onEventResize}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
-                      eventPropGetter={(this.eventStyleGetter)}
                       onSelectEvent={event => alert( event.title)}
                       onSelectSlot={this.handleSelect}
-
-                    /></div>
+                    /></animated.div>
                   : props => 
-                  <div style = {props}>
+                  <animated.div style = {props}>
                     <DragAndDropCalendar
                       selectable
                       localizer={localizer}
                       defaultDate={new Date()}
-                      defaultView="month"
+                      //defaultView="month"
                       events={this.state.groupEvents}
                       resizable
                       onEventResize={this.onEventResize}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
-                      eventPropGetter={(this.eventStyleGetter)}
                       onSelectEvent={event => alert( `${event.user_name} has the event: ${event.title} `)}
                       onSelectSlot={this.handleSelect}
-                    /></div>}
+                    /></animated.div>}
             </Transition>
              <Spring
               from={{float: 'left', opacity: 0 }}
               to={{ opacity: 1 }}>
-              {props => <div style = {props}>
+              {props => <animated.div style = {props}>
                            <GroupTable groups = {this.state.groups} user = {this.props.user}/>
-                          </div>}
+                          </animated.div>}
             </Spring>
               
 
