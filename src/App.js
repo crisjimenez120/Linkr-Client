@@ -62,7 +62,7 @@ constructor(props){
   }
 
 
-loadUser = (data) => {
+loadUser = (data) => { // logs in the user using cookies
   const { cookies } = this.props;
   cookies.set('id', data.id, { path: '/' });
   cookies.set('name', data.user_name, { path: '/' });
@@ -76,6 +76,14 @@ loadUser = (data) => {
   }})
   console.log(this.state.User);
 } 
+
+unloadUser = () => { // logs out the user using cookies
+  const { cookies } = this.props;
+  cookies.set('id', 0, { path: '/' });
+  cookies.set('name', null, { path: '/' });
+  cookies.set('email', null, { path: '/' });
+  cookies.set('Auth', false, { path: '/' } );
+}
 
 
 componentWillMount(){
@@ -98,10 +106,10 @@ componentWillMount(){
       <Switch>
         <Route exact path='/' component={() => <Login loadUser ={this.loadUser}/>}/>
         <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser}/>}/>
-        <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.User}/>}/>
-        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.User}/>}/>
-        <PrivateRoute path='/Users' component ={() => <Users user ={this.state.User}/>}/>
-        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={this.state.User}/>}/>
+        <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
+        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
+        <PrivateRoute path='/Users' component ={() => <Users user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
+        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
       </Switch>
           
       </div>

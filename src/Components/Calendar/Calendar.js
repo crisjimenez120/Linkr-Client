@@ -234,7 +234,7 @@ class myCalendar extends Component {
     return (
      <div>
 
-          <Nav user = {this.props.user.name}/>
+          <Nav user = {this.props.user.name} unloadUser = {this.props.unloadUser}/> 
             
             <div className="App" style={{display: "flex"}}>
 
