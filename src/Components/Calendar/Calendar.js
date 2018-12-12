@@ -5,10 +5,10 @@ import Nav from '../MaterialUI/Nav.js';
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { Spring, Transition,animated } from 'react-spring';
 import Button from '@material-ui/core/Button';
+
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const localizer = Calendar.momentLocalizer(moment);

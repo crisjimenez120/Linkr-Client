@@ -1,3 +1,13 @@
+/*var User = () => {
+	return { id: "", name: "", email: "", isAutheticated: false };
+}
+var user = { id: "", name: "", email: "", isAutheticated: false };
+static user = {}
+export default user;*/
+
+// ...
+// user logs in, remember it into the local storage
+// Note: is is better to use it via $window.localStorage
 
 let User = (function() {
   let id = '';
@@ -37,7 +47,6 @@ let User = (function() {
     setEmail: setEmail,
     getEmail: getEmail
   }
-
 })();
 
 export default User;
