@@ -5,6 +5,9 @@ import Users from "./Components/Users/Users.js"
 import Form from "./Components/Form/Form.js"
 import Register from "./Components/Register/Register.js"
 import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+
 import './App.css';
 import User from './User.js';
 import { Switch, 
@@ -23,13 +26,13 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        User.isAuthenticated ? (
+        Auth.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
               pathname: "/",
-              //state: { from: props.location }
+              state: { from: props.location }
             }}
           />
         )
@@ -39,52 +42,66 @@ function PrivateRoute({ component: Component, ...rest }) {
 }
 
 
+
 class App extends Component {
-constructor(){
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
+constructor(props){
+    super(props);
+    const { cookies } = props;
     this.state = {
-      /*isSignedIn: Auth.isAuthenticated,
+      isSignedIn: cookies.get('Auth') || false,
       User:{
-          id:'',
-          name:'',
-          email:'',
-      }*/
+          id: cookies.get('id') || '0',
+          name: cookies.get('name') || 'null',
+          email: cookies.get('email') || 'null'
+      }
     }
   }
 
 
 loadUser = (data) => {
-  User.id = data.id;
-  User.name = data.user_name;
-  User.email = data.email;
-  console.log (User);
-  /*this.setState({User:{
+  const { cookies } = this.props;
+  cookies.set('id', data.id, { path: '/' });
+  cookies.set('name', data.user_name, { path: '/' });
+  cookies.set('email', data.email, { path: '/' });
+  cookies.set('Auth', true, { path: '/' } );
+  
+  this.setState({User:{
           id: data.id,
->>>>>>> 9de190bbf42f6ce05cf077859bed80fc681cc57a
           name:data.user_name,
           email:data.email,
-  }})*/
-  console.log(data);
+  }})
+  console.log(this.state.User);
 } 
 
-authenticate = (e) =>{
 
-  User.isAuthenticated = e
-  console.log ("You da right nigga: " + User.isAuthenticated);
+componentWillMount(){
+    const { cookies } = this.props;
+
+  this.setState({
+    User:{
+          id: cookies.get('id') || '0',
+          name: cookies.get('name') || 'null',
+          email: cookies.get('email') || 'null'
+      }
+  })
+  Auth.isAuthenticated = cookies.get('Auth');
 }
-
 
   render() {  
     return (
       <div className="App">
       
       <Switch>
-        <Route exact path='/' component={() => <Login loadUser ={this.loadUser} authenticate={this.authenticate} isAuthenticated = {Auth.isAuthenticated}/>}/>
-        <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
-        <PrivateRoute exact path='/Form' component ={() => <Form user ={User}/>}/>
-        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={User}/>}/>
-        <PrivateRoute path='/Users' component ={() => <Users user ={User}/>}/>
-        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={User}/>}/>
+        <Route exact path='/' component={() => <Login loadUser ={this.loadUser}/>}/>
+        <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser}/>}/>
+        <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.User}/>}/>
+        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.User}/>}/>
+        <PrivateRoute path='/Users' component ={() => <Users user ={this.state.User}/>}/>
+        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={this.state.User}/>}/>
       </Switch>
           
       </div>
@@ -93,4 +110,4 @@ authenticate = (e) =>{
 }
 
 
-export default App;
+export default withCookies(App);

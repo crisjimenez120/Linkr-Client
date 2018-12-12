@@ -15,9 +15,9 @@ class SignIn extends React.Component  {
 		}
 	}
 
-	onPageLoad = () => {
-		console.log ("This is onPageLoad" + User.name + " " + User.email + " " + User.isAuthenticated);
-	}
+	// onPageLoad = () => {
+	// 	console.log ("This is onPageLoad" + User.name + " " + User.email + " " + User.isAuthenticated);
+	// }
 
 	onEmailChange= (event) =>{
 		//console.log(event.target.value)
@@ -27,14 +27,11 @@ class SignIn extends React.Component  {
 		//console.log(event.target.value)
 		this.setState({password: event.target.value})
 	}
-	reload = () =>{
-		console.log("reloading")
-		//window.location.reload()
-	}
+
 	onSubmitSignIn = () =>{
 		// console.log(this.state.event)
 		// console.log(this.state.password)
-		console.log(this.state.isAuthenticated);
+		//console.log(this.state.isAuthenticated);
 			
 		this.setState({
 			isAuthenticated : true
@@ -52,7 +49,7 @@ class SignIn extends React.Component  {
 			if(user.email){
 				console.log("sending back the user");
 				this.props.loadUser(user);
-		 		this.props.authenticate(true);
+		 		//this.props.authenticate(true);
 		 		
 			}
 		}).then(setTimeout (() => {
@@ -63,17 +60,14 @@ class SignIn extends React.Component  {
 	}
 
 	
-	componentDidMount () {
-		this.onPageLoad();
-	}
 
 
 
 	render(){
 
-		if(User.isAuthenticated){
-			return <Redirect to ='/Calendar'/> 
-		}
+		// if(.isAuthenticated){
+		// 	return <Redirect to ='/Calendar'/> 
+		// }
 		return(
 		<div>
 			<div>
@@ -110,6 +104,9 @@ class SignIn extends React.Component  {
 				<div>
 					<Button variant="outlined" size="large" color="primary" onClick = {() => this.onSubmitSignIn()} style = {{margin: 10}}> Log In </Button>
 				</div>
+				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Calendar </Button>
+				</Link>
 				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Register </Button>
 				</Link>
@@ -119,7 +116,7 @@ class SignIn extends React.Component  {
 	)}
 	}
 	
-}
+
 
 
 export default SignIn;

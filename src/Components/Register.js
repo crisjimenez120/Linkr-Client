@@ -43,15 +43,8 @@ class Register extends React.Component  {
 		}).then(response => response.json())
 		.then(user => {
 			if(user.id){
-				let loadUser = (data) => {
-				User.setName(data.user_name);
-				User.setID(data.id);
-				User.setEmail(data.email);
-		 		this.setState({
-		 			isRedirecting: true
-		 		})
+				this.props.loadUser(user)
 			}
-		}
 		})
 	}
 	
