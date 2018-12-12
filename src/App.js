@@ -56,7 +56,7 @@ constructor(){
 
 loadUser = (data) => {
   this.setState({user:{
-          id: data.id,
+          id: data.id,          
           name:data.user_name,
           email:data.email,
   }})
@@ -73,7 +73,7 @@ authenticate = (e) =>{
       <div className="App">
       
       <Switch>
-        <Route exact path='/' component={() => <Login loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
+        <Route exact path='/' component={() => <Login loadUser ={this.loadUser} authenticate={this.authenticate} isAuthenticated = {Auth.isAuthenticated}/>}/>
         <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
         <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.user}/>}/>
         <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.user}/>}/>

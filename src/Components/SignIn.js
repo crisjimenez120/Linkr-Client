@@ -11,7 +11,7 @@ class SignIn extends React.Component  {
 		this.state = {
 			email: '',
 			password: '',
-			isRedirecting: false
+			isAuthenticated: false
 		}
 	}
 
@@ -23,9 +23,18 @@ class SignIn extends React.Component  {
 		//console.log(event.target.value)
 		this.setState({password: event.target.value})
 	}
+	reload = () =>{
+		console.log("reloading")
+		//window.location.reload()
+	}
 	onSubmitSignIn = () =>{
 		// console.log(this.state.event)
 		// console.log(this.state.password)
+		console.log(this.state.isAuthenticated);
+			
+		this.setState({
+			isAuthenticated : true
+		}) 
 
 		fetch('/signin/api_signin', {
 			method: 'post',
@@ -40,17 +49,21 @@ class SignIn extends React.Component  {
 				console.log("sending back the user");
 				this.props.loadUser(user);
 		 		this.props.authenticate(true);
-		 		// this.setState({
-		 		// 	isRedirecting: true
-		 		// })
+		 		
 			}
-		})
+		}).then(setTimeout (() => {
+      			console.log(this.state.isAuthenticated);
+    			})
+    	)
+		
 	}
+
 	
 	render(){
-		// if(this.state.isRedirecting){
-		// 	return <Redirect to ='/Calendar'/> 
-		// }
+		if(this.state.isAuthenticated){
+		 	return <Redirect to ='/Calendar'/> 
+		 }
+		 if(!this.state.isAuthenticated){
 		return(
 		<div>
 			<div>
@@ -84,20 +97,17 @@ class SignIn extends React.Component  {
 		        />
 			</div> 
 			<div>
-			<div>
-				<Button variant="outlined" size="large" color="primary" onClick = {() => this.onSubmitSignIn()} style = {{margin: 10}}> LOG IN </Button>
-				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Calendar </Button>
-				</Link>
+				<div>
+					<Button variant="outlined" size="large" color="primary" onClick = {() => this.onSubmitSignIn()} style = {{margin: 10}}> Log In </Button>
 				</div>
 				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go To Register </Button>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Register </Button>
 				</Link>
 				
 			</div> 
 		 </div>
 	)}
-			
+	}
 	
 }
 
