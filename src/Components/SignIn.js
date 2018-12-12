@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
-
+import User from '../User.js';
 
 class SignIn extends React.Component  {
 	constructor(props){
@@ -13,6 +13,10 @@ class SignIn extends React.Component  {
 			password: '',
 			isRedirecting: false
 		}
+	}
+
+	onPageLoad = () => {
+		console.log ("This is onPageLoad" + User.name + " " + User.email + " " + User.isAuthenticated);
 	}
 
 	onEmailChange= (event) =>{
@@ -47,8 +51,14 @@ class SignIn extends React.Component  {
 		})
 	}
 	
+	componentDidMount () {
+		this.onPageLoad();
+	}
+
+
+
 	render(){
-		if(this.state.isRedirecting){
+		if(User.isAuthenticated){
 			return <Redirect to ='/Calendar'/> 
 		}
 		return(

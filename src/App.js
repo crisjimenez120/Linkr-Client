@@ -3,18 +3,16 @@ import Login from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
 import Users from "./Components/Users/Users.js"
 import Form from "./Components/Form/Form.js"
-
 import Register from "./Components/Register/Register.js"
-
 import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"
 import './App.css';
+import User from './User.js';
 import { Switch, 
          Route,
  //        Link,
          Redirect,
  //        withRouter
        } from 'react-router-dom'
-
 
 const Auth = {
   isAuthenticated: false,
@@ -25,13 +23,13 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        Auth.isAuthenticated ? (
+        User.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
               pathname: "/",
-              state: { from: props.location }
+              //state: { from: props.location }
             }}
           />
         )
@@ -45,27 +43,33 @@ class App extends Component {
 constructor(){
     super();
     this.state = {
-      isSignedIn: Auth.isAuthenticated,
-      user:{
+      /*isSignedIn: Auth.isAuthenticated,
+      User:{
           id:'',
           name:'',
           email:'',
-      }
+      }*/
     }
   }
 
 
 loadUser = (data) => {
-  this.setState({user:{
+  User.id = data.id;
+  User.name = data.user_name;
+  User.email = data.email;
+  console.log (User);
+  /*this.setState({User:{
           id: data.id,
           name:data.user_name,
           email:data.email,
-  }})
+  }})*/
   console.log(data);
 } 
 
 authenticate = (e) =>{
-  Auth.isAuthenticated = e
+
+  User.isAuthenticated = e
+  console.log ("You da right nigga: " + User.isAuthenticated);
 }
 
 
@@ -76,10 +80,10 @@ authenticate = (e) =>{
       <Switch>
         <Route exact path='/' component={() => <Login loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
         <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} authenticate={this.authenticate}/>}/>
-        <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.user}/>}/>
-        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.user}/>}/>
-        <PrivateRoute path='/Users' component ={() => <Users user ={this.state.user}/>}/>
-        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={this.state.user}/>}/>
+        <PrivateRoute exact path='/Form' component ={() => <Form user ={User}/>}/>
+        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={User}/>}/>
+        <PrivateRoute path='/Users' component ={() => <Users user ={User}/>}/>
+        <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={User}/>}/>
       </Switch>
           
       </div>
