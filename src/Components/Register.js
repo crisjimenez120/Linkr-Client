@@ -13,7 +13,6 @@ class Register extends React.Component  {
 	        name: '',
 			email: '',
 			password: '',
-			isRedirecting: false
 	      }
    	 }
   }
@@ -49,9 +48,6 @@ class Register extends React.Component  {
 	}
 	
 	render(){
-		if(this.state.isRedirecting){
-			return <Redirect to ='/Calendar'/> 
-		}
 		return(
 		<div>
 			<div>

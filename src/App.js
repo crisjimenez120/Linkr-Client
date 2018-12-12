@@ -68,8 +68,10 @@ loadUser = (data) => { // logs in the user using cookies
   cookies.set('name', data.user_name, { path: '/' });
   cookies.set('email', data.email, { path: '/' });
   cookies.set('Auth', true, { path: '/' } );
-  
-  this.setState({User:{
+  Auth.isAuthenticated = cookies.get('Auth');
+  this.setState({
+    isSignedIn: true,
+    User:{
           id: data.id,
           name:data.user_name,
           email:data.email,
@@ -83,6 +85,7 @@ unloadUser = () => { // logs out the user using cookies
   cookies.set('name', null, { path: '/' });
   cookies.set('email', null, { path: '/' });
   cookies.set('Auth', false, { path: '/' } );
+  Auth.isAuthenticated = false;
 }
 
 
@@ -90,6 +93,7 @@ componentWillMount(){
     const { cookies } = this.props;
 
   this.setState({
+    isSignedIn:false,
     User:{
           id: cookies.get('id') || '0',
           name: cookies.get('name') || 'null',
@@ -98,16 +102,21 @@ componentWillMount(){
   })
   Auth.isAuthenticated = cookies.get('Auth');
 }
+auth = () =>{
+  this.setState({
+    isSignedIn : true
+  })
+}
 
   render() {  
     return (
       <div className="App">
       
       <Switch>
-        <Route exact path='/' component={() => <Login loadUser ={this.loadUser}/>}/>
-        <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser}/>}/>
+        <Route exact path='/' component={() => <Login loadUser ={this.loadUser} auth = {this.auth} isAuthenticated = {this.state.isSignedIn}/>}/>
+        <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} /> }/>
         <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
-        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
+        <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.User} unloadUser ={this.unloadUser} isAuthenticated = {this.state.isSignedIn}/>}/>
         <PrivateRoute path='/Users' component ={() => <Users user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
         <PrivateRoute path='/Groups' component ={() => <GroupsBoard user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
       </Switch>

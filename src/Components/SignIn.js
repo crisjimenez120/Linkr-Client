@@ -32,11 +32,6 @@ class SignIn extends React.Component  {
 		// console.log(this.state.event)
 		// console.log(this.state.password)
 		//console.log(this.state.isAuthenticated);
-			
-		this.setState({
-			isAuthenticated : true
-		}) 
-
 		fetch('/signin/api_signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
@@ -49,12 +44,11 @@ class SignIn extends React.Component  {
 			if(user.email){
 				console.log("sending back the user");
 				this.props.loadUser(user);
-		 		//this.props.authenticate(true);
-		 		
+		 		this.props.auth();
 			}
 		}).then(setTimeout (() => {
-      			console.log(this.state.isAuthenticated);
-    			})
+      			window.location.reload()
+    			}, 300)
     	)
 		
 	}
@@ -65,9 +59,9 @@ class SignIn extends React.Component  {
 
 	render(){
 
-		// if(.isAuthenticated){
-		// 	return <Redirect to ='/Calendar'/> 
-		// }
+		if(this.props.isAuthenticated){
+			return <Redirect to ='/Calendar'/> 
+		}
 		return(
 		<div>
 			<div>
@@ -96,7 +90,6 @@ class SignIn extends React.Component  {
 		          //type = "password"
 		          margin="normal"
 		          variant="outlined"
-
 		          onChange = {this.onPasswordChange}
 		        />
 			</div> 
@@ -104,9 +97,6 @@ class SignIn extends React.Component  {
 				<div>
 					<Button variant="outlined" size="large" color="primary" onClick = {() => this.onSubmitSignIn()} style = {{margin: 10}}> Log In </Button>
 				</div>
-				<Link to={'/Calendar'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Calendar </Button>
-				</Link>
 				 <Link to={'/Register'} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Register </Button>
 				</Link>

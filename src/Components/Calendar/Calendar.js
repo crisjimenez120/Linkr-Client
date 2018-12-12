@@ -8,6 +8,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { Spring, Transition,animated } from 'react-spring';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom';
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
@@ -231,6 +232,10 @@ class myCalendar extends Component {
 
 
   render() {
+    if(this.props.user.id == 0){
+      return <Redirect to ='/'/> 
+    }
+
     return (
      <div>
 
