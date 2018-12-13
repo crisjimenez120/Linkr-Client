@@ -61,4 +61,4 @@ __Toggle between personal/group schedule__
 ![](toggle_schedule.gif)
 
 
-### Special Thanks: Edgardo Molina | Joelle Bernabo 
+### Special Thanks: Edgardo Molina | Joelle Berbano 
