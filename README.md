@@ -13,6 +13,7 @@ CUNY Tech Prep 2018 | Full Stack Web Application
 ## Usage
 
 ### NOTE: PostgreSQL must be installed. To configure the database, username, and password, adjust the config.json file (located within the "config" folder) to a Postgres database of your choosing.
+### ANOTHER NOTE: The client occupies port 3000 and the server occupies port 3001. These ports should be available for use when using Linkr
 
 1) Clone the following repositories: 
 crisjimenez120/Linkr-Client ([Frontend](https://github.com/crisjimenez120/Linkr-Client)) 
