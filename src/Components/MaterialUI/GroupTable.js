@@ -48,8 +48,8 @@ class GroupTable extends React.Component {
                   
           <Trail
             items={this.props.groups} keys={group => group.group_id}
-            from={{  transform: 'rotate(45deg)', opacity: 0, x: -100 }}
-            to={{ transform: 'rotate(0deg)', opacity: 1 , x: 0 }}>
+            from={{  transform: 'scaleY(0)', opacity: 0, x: -100 }}
+            to={{ transform: 'scaleY(1)', opacity: 1 , x: 0 }}>
             {group => props =>
               <ListItem style={props} key={group.group_id} role={undefined} dense button onClick={() => this.handleChange(group.group_id)}>
                       <ListItemText primary={group.group_name} />

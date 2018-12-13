@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 //import TextField from '@material-ui/core/TextField';
 import Card from './Cards'
+import CardList from './CardList'
 import styled from 'styled-components';
 
 
@@ -137,6 +138,7 @@ class SimpleModal extends React.Component {
                   </div>
                 )}
             </div>
+            
             </Scrollable>
           </div>
         </Modal>

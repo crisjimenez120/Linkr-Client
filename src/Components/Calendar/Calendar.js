@@ -62,6 +62,7 @@ class myCalendar extends Component {
     super(props)
     this.state = 
     {
+      group: '',
       events: [],
       groupEvents: [],
       groups: [],
@@ -71,7 +72,7 @@ class myCalendar extends Component {
     
  
   getUserGroups(){
-        console.log("getUserGroups")
+      console.log("getUserGroups")
       tempGroups = [];
 
       fetch('/groups/api_all_groups_single_user', {
@@ -106,22 +107,16 @@ class myCalendar extends Component {
                       //.then( res => console.log(res))
           .then( event => {for(let i = 0; i < event.length; i++){tempEvents.push(event[i])}})
           this.getUserGroups()
-          this.getGroupEvents()
     setTimeout (() => {
       parseEvents(tempEvents);
       parseEvents(tempGroupEvents);
       this.setState({
         events : tempEvents,
         groups : tempGroups,
-        groupEvents : tempGroupEvents
       })
       console.log(tempGroupEvents);
     })
   }
-
-    
-      
-    
 
   eventStyleGetter = (event) =>{
     console.log(event.id);
@@ -194,6 +189,7 @@ class myCalendar extends Component {
             }),
           })
            .then( res => res.json())
+           //.then( res => console.log(res))
            .then( events => {
                     for(let i = 0; i < events.length; i++){
                       events[i].title = `${events[i].user_name}:  ${events[i].title}`
@@ -201,12 +197,19 @@ class myCalendar extends Component {
                     }
                   parseEvents(tempGroupEvents);
                 })
-        this.updateGroupEvents(tempGroupEvents);
+        this.updateGroupEvents(tempGroupEvents, id);
   }
 
-  updateGroupEvents(tempGroupEvents){
+  updateGroupEvents(tempGroupEvents, id){
+      let groupName = '';
+      for(let i = 0; i < this.state.groups.length; i++){
+        if(this.state.groups[i].group_id == id){
+          groupName = this.state.groups[i].group_name;
+        }
+      }
       this.setState({
-          groupEvents : tempGroupEvents
+          groupEvents : tempGroupEvents,
+          group: groupName
       })
   }
   onToggleCalendar = () =>{
@@ -223,12 +226,8 @@ class myCalendar extends Component {
 
   onSelectGroup = id =>{
       console.log("GROUP " + id);
+
       this.getGroupEvents(id);
-      setTimeout (() => {
-      //parseEvents(tempGroupEvents);
-     
-      console.log(this.state.groupEvents);
-    }, 1000)
   }
   
   onEventResize = ({ event, start, end }) => {
@@ -269,17 +268,18 @@ class myCalendar extends Component {
     return (
      <div>
 
-          <Nav user = {this.props.user.name} unloadUser = {this.props.unloadUser}/> 
+          <Nav user = {this.props.user.name} toggle = {this.state.showGroupEvents} group ={this.state.group} unloadUser = {this.props.unloadUser}/> 
             
             <div className="App" style={{display: "flex"}}>
 
             <Transition
               native
               force
+              config={{ tension: 180, friction: 12 }}
               items={this.state.showGroupEvents}
-              from={{transform: 'rotateX(-180deg)'}}
-              enter={{ transform: 'rotateX(0deg)'}}
-              leave={{ position: 'absolute', transform: 'rotateX(-180deg)', opacity: '0'}}>
+              from={{transform: 'rotateY(-180deg)',opacity: '0'}}
+              enter={{ transform: 'rotateY(0deg)',opacity: '1'}}
+              leave={{ position: 'absolute', transform: 'rotateY(-180deg)', opacity: '0'}}>
               {toggle =>
                 toggle
                   ? props => 

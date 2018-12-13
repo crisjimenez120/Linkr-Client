@@ -94,7 +94,7 @@ class SignIn extends React.Component  {
 		          label="Password"
 		          value = {this.state.password}
 		          className ="TextField"
-		          //type = "Password"
+		          type = "Password"
 		          margin = "normal"
 		          variant="outlined"
 		          onChange = {this.onPasswordChange}

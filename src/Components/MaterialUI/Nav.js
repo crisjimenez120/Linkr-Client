@@ -4,33 +4,27 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
-import styled from 'styled-components';
 
 
 
- const EvenSpacing = styled.div`
-    display: flex
-    justify-content: space-between
-  `;
 
 class SimpleAppBar extends React.Component{
 
  
   render(){
     return(
+      
     <div>
       <AppBar position="static" color="primary">
-        <Toolbar>
-          <EvenSpacing>
+        <Toolbar> 
           <div >
           <Typography variant="h3" style= {{color: "white"}} >
-
             Linkr
           </Typography>
           </div>
-          <div style={{marginRight: '35vw', marginLeft: '35vw' }}>
-          <Typography variant="h3" style= {{color: "white"}} >
-            {this.props.user}
+          <div>
+          <Typography variant="h3" style= {{color: "white", marginLeft: '10vw',marginRight: '35vw'}} >
+            {this.props.toggle ? this.props.user : this.props.group}
           </Typography>
           </div>
           <div>
@@ -38,11 +32,12 @@ class SimpleAppBar extends React.Component{
             <Button onClick = {() => this.props.unloadUser()} variant="outlined" size="large" color="default" style = {{margin: 10,color: "white" }}> Logout </Button>
           </Link>
           </div>
-          </EvenSpacing>
+          
           
         </Toolbar>
       </AppBar>
     </div>
+    
     );
   }
     
