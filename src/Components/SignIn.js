@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
-import User from '../User.js';
+import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
+import './SignIn.css';
 
 class SignIn extends React.Component  {
 	constructor(props){
@@ -42,13 +43,13 @@ class SignIn extends React.Component  {
 		}).then(response => response.json())
 		.then(user => {
 			if(user.email){
-				console.log("sending back the user");
+				//console.log("sending back the user");
 				this.props.loadUser(user);
 		 		this.props.auth();
 			}
 		}).then(setTimeout (() => {
       			window.location.reload()
-    			}, 300)
+    			}, 500)
     	)
 		
 	}
@@ -65,7 +66,8 @@ class SignIn extends React.Component  {
 		return(
 		<div>
 			<div>
-			<Typography variant="h3" color="inherit" noWrap>
+			<Typography variant="h3" color="primary" noWrap>
+			<CalendarIcon/>
               Linkr
             
             </Typography>
@@ -74,21 +76,23 @@ class SignIn extends React.Component  {
 			<div>
 				<TextField
 		          //id="outlined-with-placeholder"
-		          label="Enter Email"
-		          placeholder="Email"
-		          margin="normal"
+		          label="Email"
 		          type ="text"
+		          value = {this.state.email}
+		          className ="TextField"
+		          margin = "normal"
 		          variant="outlined"
 		          onChange={this.onEmailChange}
 		        />
 			</div> 
 			<div>
 				<TextField
-          		  id="outlined-adornment-password"
-		          label="Enter Password"
-		          placeholder="Password"
-		          //type = "password"
-		          margin="normal"
+          		  id="outlined-password-input"
+		          label="Password"
+		          value = {this.state.password}
+		          className ="TextField"
+		          type = "Password"
+		          margin = "normal"
 		          variant="outlined"
 		          onChange = {this.onPasswordChange}
 		        />

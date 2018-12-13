@@ -3,13 +3,11 @@ import Login from './Components/SignIn.js'
 import Calendar from './Components/Calendar/Calendar.js'
 import Users from "./Components/Users/Users.js"
 import Form from "./Components/Form/Form.js"
-import Register from "./Components/Register/Register.js"
+import Register from "./Components/Register.js"
 import GroupsBoard from "./Components/GroupsBoard/GroupsBoard.js"
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-
 import './App.css';
-import User from './User.js';
 import { Switch, 
          Route,
  //        Link,
@@ -114,7 +112,7 @@ auth = () =>{
       
       <Switch>
         <Route exact path='/' component={() => <Login loadUser ={this.loadUser} auth = {this.auth} isAuthenticated = {this.state.isSignedIn}/>}/>
-        <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} /> }/>
+        <Route path = '/Register' component ={() => <Register loadUser ={this.loadUser} auth = {this.auth} isAuthenticated = {this.state.isSignedIn}/> }/>
         <PrivateRoute exact path='/Form' component ={() => <Form user ={this.state.User} unloadUser ={this.unloadUser}/>}/>
         <PrivateRoute path='/Calendar' component ={() => <Calendar user ={this.state.User} unloadUser ={this.unloadUser} isAuthenticated = {this.state.isSignedIn}/>}/>
         <PrivateRoute path='/Users' component ={() => <Users user ={this.state.User} unloadUser ={this.unloadUser}/>}/>

@@ -1,12 +1,11 @@
+
 .App {
   text-align: center;
+  
+  height: 85vh;
 }
 .center{
   display: flex;
   justify-content: center;
 }
 
-.Users{
-  display: flex;
-  justify-content: center;
-}

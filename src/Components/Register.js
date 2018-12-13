@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
-import User from '../User';
+import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
+import './SignIn.css';
 
 class Register extends React.Component  {
 	constructor(props){
@@ -43,23 +44,31 @@ class Register extends React.Component  {
 		.then(user => {
 			if(user.id){
 				this.props.loadUser(user)
+				this.props.auth();
 			}
-		})
+		}).then(setTimeout (() => {
+      			window.location.reload()
+    			}, 500)
+    	)
 	}
 	
 	render(){
+		if(this.props.isAuthenticated){
+			return <Redirect to ='/Calendar'/> 
+		}
 		return(
 		<div>
 			<div>
-			<Typography variant="h3" color="inherit" noWrap>
-              Linkr
-              
-              </Typography>
+			<Typography variant="h3" color="primary" noWrap>
+					<CalendarIcon/>
+		              Linkr
+            </Typography>
               <div>
 				<TextField
 		          id="outlined-with-placeholder"
 		          label="Enter Name"
 		          placeholder="Name"
+		          className ="TextField"
 		          margin="normal"
 		          variant="outlined"
 		          onChange={this.onNameChange}
@@ -71,6 +80,7 @@ class Register extends React.Component  {
 		          label="Enter Email"
 		          placeholder="Email"
 		          margin="normal"
+		          className ="TextField"
 		          variant="outlined"
 		          onChange={this.onEmailChange}
 		        />
@@ -80,12 +90,14 @@ class Register extends React.Component  {
 		          id="outlined-with-placeholder"
 		          label="Enter Password"
 		          placeholder="Password"
+		          className ="TextField"
 		          type = "password"
 		          margin="normal"
 		          variant="outlined"
 		          onChange = {this.onPasswordChange}
 		        />
 			</div> 
+			<br/>
 			<div>
 				<div>
 					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>

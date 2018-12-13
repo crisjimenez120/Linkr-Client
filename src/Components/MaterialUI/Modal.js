@@ -50,6 +50,9 @@ class SimpleModal extends React.Component {
         email:this.props.user.email
       })
     })
+
+    this.handleClose();
+    this.props.addGroup();
     
   }
   

@@ -25,15 +25,19 @@ function reviver(key, value) {
     return value;
 }
 
+let selectColor = (n) => {
+  // Color array    blue,     red      green,     yellow,     pink, purple, orange, aqua, light blue 
+  var colors = ["3300CC", "D00000", "006633", "CCFF66", "FF66FF", "9900CC", "00FFFF", "00FFFF"];
+  return colors[n % colors.length];
+}
  
 
-let idNum = 16;
 
 let tempEvents = [];
 let tempGroups = [];
 let tempGroupEvents = [];
 
-let parseEvents = (Events) =>{
+let parseEvents = (Events) => {
       Events.map(event => {
         let startTemp = event.start.substring(0, 19);
         startTemp += 'Z'
@@ -68,6 +72,7 @@ class myCalendar extends Component {
  
   getUserGroups(){
         console.log("getUserGroups")
+      tempGroups = [];
 
       fetch('/groups/api_all_groups_single_user', {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -82,7 +87,7 @@ class myCalendar extends Component {
         //.then( groups => console.log(groups))
         .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
         .then(console.log(tempGroups))
-                      
+             
   }
 
   //so here we are just waiting for the stack to finish executing to parse the tempevent
@@ -118,14 +123,15 @@ class myCalendar extends Component {
       
     
 
-  eventStyleGetter = (event, start, end, isSelected) =>{
-    
-    var backgroundColor = '#' + event.hexColor;
+  eventStyleGetter = (event) =>{
+    console.log(event.id);
+
+    var backgroundColor = '#' + selectColor(event.id);
     var style = {
         backgroundColor: backgroundColor,
-        borderRadius: '0px',
+        borderRadius: '10px',
         opacity: 0.8,
-        color: 'black',
+        color: 'white',
         border: '0px',
         display: 'block',
 
@@ -136,7 +142,13 @@ class myCalendar extends Component {
 	}
 
 
-
+  onAddGroup = () =>{
+    this.getUserGroups();
+    setTimeout(() => {this.setState({
+                        groups : tempGroups,
+                      }) 
+                    },100) 
+  }
 
 
   handleSelect = ({ start, end }) => {
@@ -183,6 +195,7 @@ class myCalendar extends Component {
           }).then( res => res.json())
            .then( events => {
                     for(let i = 0; i < events.length; i++){
+                      events[i].title = `${events[i].user_name}:  ${events[i].title}`
                       tempGroupEvents.push(events[i])
                     }
                   parseEvents(tempGroupEvents);
@@ -211,7 +224,7 @@ class myCalendar extends Component {
       setTimeout (() => {
       //parseEvents(tempGroupEvents);
      
-      console.log("TEMP EVENTS" + tempGroupEvents);
+      console.log(tempGroupEvents);
     }, 300)
   }
   
@@ -272,7 +285,6 @@ class myCalendar extends Component {
                       selectable
                       localizer={localizer}
                       defaultDate={new Date()}
-                      //defaultView="month"
                       events={this.state.events}
                       resizable
                       onEventResize={this.onEventResize}
@@ -286,22 +298,21 @@ class myCalendar extends Component {
                       selectable
                       localizer={localizer}
                       defaultDate={new Date()}
-                      //defaultView="month"
                       events={this.state.groupEvents}
                       resizable
                       onEventResize={this.onEventResize}
+                      eventPropGetter={(this.eventStyleGetter)}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
-                      onSelectEvent={event => alert( `${event.user_name} has the event: ${event.title} `)}
+                      onSelectEvent={event => alert( `${event.title}
+start:${event.start.} 
+end:${event.end} `)}
                       onSelectSlot={this.handleSelect}
                     /></animated.div>}
             </Transition>
-             <Spring
-              from={{float: 'left', opacity: 0 }}
-              to={{ opacity: 1 }}>
-              {props => <animated.div style = {props}>
-                           <GroupTable groups = {this.state.groups} user = {this.props.user} onSelectGroup = {this.onSelectGroup}/>
-                          </animated.div>}
-            </Spring>
+            <div>
+              <GroupTable groups = {this.state.groups} user = {this.props.user} onSelectGroup = {this.onSelectGroup} addGroup = {this.onAddGroup}/>
+            </div>
+           
               
 
             </div>
