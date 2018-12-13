@@ -47,13 +47,13 @@ __Creating Events__
 __Creating groups__
 - Users are able create groups. This includes the name of the group, and a description about the group.
 
--insert gif here-
+![](creating_groups.gif)
 
 
 __Add users to groups__
 - The user is able to add other users to any group that they choose
 
--insert gif here-
+![](add_to_groups.gif)
 
 __Toggle between personal/group schedule__
 - The user is able to switch between their schedule and his/her selected group's schedule
