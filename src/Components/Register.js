@@ -97,7 +97,7 @@ class Register extends React.Component  {
 		          label="Enter Password"
 		          placeholder="Password"
 		          className ="TextField"
-		          //type = "password"
+		          type = "password"
 		          margin="normal"
 		          variant="outlined"
 		          onChange = {this.onPasswordChange}

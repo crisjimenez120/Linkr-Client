@@ -9,7 +9,7 @@
 	margin-left: 39vw;
 	border-color: black;
 	border-style: solid;
-	
+	min-width: 300px;
 }
 .Register{
 	margin-top: 10vh;
@@ -17,4 +17,5 @@
 	margin-left: 39vw;
 	border-color: black;
 	border-style: solid;
+    min-width: 300px;
 }
