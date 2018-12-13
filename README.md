@@ -42,7 +42,7 @@ Have you ever found yourself free one day, then you hit up your friends to go se
 __Creating Events__
 - Users can add events that pertain to their personal schedules that pertain to whichever date they choose
 
-
+![](creating_event.gif)
 
 __Creating groups__
 - Users are able create groups. This includes the name of the group, and a description about the group.
@@ -58,7 +58,7 @@ __Add users to groups__
 __Toggle between personal/group schedule__
 - The user is able to switch between their schedule and his/her selected group's schedule
 
-
+![](toggle_schedule.gif)
 
 
 ### Special Thanks: Edgardo Molina | Joelle Bernabo 
