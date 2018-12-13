@@ -37,6 +37,7 @@ const styles = theme => ({
   },
 });
 
+
 class SimpleModal extends React.Component {
  
   constructor(props) {
@@ -58,6 +59,20 @@ class SimpleModal extends React.Component {
                      .then( users => this.setState({ users }));
   }
 
+  handleOpen = () => {
+    this.setState({ open: true });
+    fetch('/groups/api_get_all_users_for_group',{
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify({
+            group_id: this.props.group.group_id,
+          }),
+    }).then( res => res.json())
+      .then( users => this.setState({ inGroup : users }));
+  };
+
   onAddUser = (userEmail) => {
     fetch('/groups/api_add_groups_to_user', {
       method: 'post',
@@ -78,6 +93,7 @@ class SimpleModal extends React.Component {
           email: userEmail
         })
       })
+      console.log(this.state.inGroup.indexOf(userEmail));
     }
 
   compare = (email) => {
@@ -90,19 +106,7 @@ class SimpleModal extends React.Component {
     return flag;
   }
 
-  handleOpen = () => {
-    this.setState({ open: true });
-    fetch('/groups/api_get_all_users_for_group',{
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          headers: {
-              "Content-Type": "application/json; charset=utf-8",
-          },
-          body: JSON.stringify({
-            group_id: this.props.group.group_id,
-          }),
-    }).then( res => res.json())
-      .then( users => this.setState({ inGroup : users }));
-  };
+  
 
   handleClose = () => {
     this.setState({ open: false });
@@ -131,9 +135,6 @@ class SimpleModal extends React.Component {
                   {this.compare(user.email) === false ? <Button variant="outlined" size="small" color="primary" fullWidth={true} onClick={() => { this.onAddUser(user.email)}}>Add</Button> :
                   <Button variant="outlined" size="small" color="secondary" fullWidth={true} onClick = {() => {this.onDeleteUser(user.email)}} >Delete</Button>}
                   </div>
-                )}
-              {this.state.inGroup.map( user =>
-                 user.user_email
                 )}
             </div>
             </Scrollable>

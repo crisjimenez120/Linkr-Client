@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
 import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
 import './SignIn.css';
+import { Spring } from 'react-spring'
 
 class SignIn extends React.Component  {
 	constructor(props){
@@ -16,9 +17,6 @@ class SignIn extends React.Component  {
 		}
 	}
 
-	// onPageLoad = () => {
-	// 	console.log ("This is onPageLoad" + User.name + " " + User.email + " " + User.isAuthenticated);
-	// }
 
 	onEmailChange= (event) =>{
 		//console.log(event.target.value)
@@ -64,7 +62,12 @@ class SignIn extends React.Component  {
 			return <Redirect to ='/Calendar'/> 
 		}
 		return(
-		<div>
+			<Spring
+			  config={{ tension: 180, friction: 12 }}
+			  from={{ transform: 'rotateX(-180deg)' }}
+			  to={{ transform: 'rotateX(0deg)' }}>
+			  {props => 
+		<div style={props} className = "SignIn">
 			<div>
 			<Typography variant="h3" color="primary" noWrap>
 			<CalendarIcon/>
@@ -91,7 +94,7 @@ class SignIn extends React.Component  {
 		          label="Password"
 		          value = {this.state.password}
 		          className ="TextField"
-		          type = "Password"
+		          //type = "Password"
 		          margin = "normal"
 		          variant="outlined"
 		          onChange = {this.onPasswordChange}
@@ -107,6 +110,8 @@ class SignIn extends React.Component  {
 				
 			</div> 
 		 </div>
+		 }
+</Spring>
 	)}
 	}
 	

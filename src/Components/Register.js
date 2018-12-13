@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
 import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
 import './SignIn.css';
+import { Spring } from 'react-spring'
 
 class Register extends React.Component  {
 	constructor(props){
@@ -57,7 +58,12 @@ class Register extends React.Component  {
 			return <Redirect to ='/Calendar'/> 
 		}
 		return(
-		<div>
+		<Spring
+		      config={{ tension: 180, friction: 12 }}
+			  from={{ transform: 'rotateY(180deg)' }}
+			  to={{ transform: 'rotateY(0deg)' }}>
+			  {props => 
+		<div style={props} className = "Register">
 			<div>
 			<Typography variant="h3" color="primary" noWrap>
 					<CalendarIcon/>
@@ -91,7 +97,7 @@ class Register extends React.Component  {
 		          label="Enter Password"
 		          placeholder="Password"
 		          className ="TextField"
-		          type = "password"
+		          //type = "password"
 		          margin="normal"
 		          variant="outlined"
 		          onChange = {this.onPasswordChange}
@@ -103,10 +109,12 @@ class Register extends React.Component  {
 					<Button variant="outlined" size="large" color="primary" onClick = {this.onSubmitSignIn}>Register</Button>
 				</div>
 				<Link to={'/'} style={{ textDecoration: 'none' }}>
-					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}> Go to Sign In </Button>
+					<Button variant="outlined" size="large" color="primary" style = {{margin: 10}}>Sign In </Button>
 				</Link>
 			</div> 
 		 </div>
+		 }
+</Spring>
 	)}
 			
 	

@@ -6,7 +6,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { Spring, Transition,animated } from 'react-spring';
+import { Spring, Transition, animated } from 'react-spring';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom';
 
@@ -192,20 +192,23 @@ class myCalendar extends Component {
             body: JSON.stringify({
               group_id: id,
             }),
-          }).then( res => res.json())
+          })
+           .then( res => res.json())
            .then( events => {
                     for(let i = 0; i < events.length; i++){
                       events[i].title = `${events[i].user_name}:  ${events[i].title}`
                       tempGroupEvents.push(events[i])
                     }
                   parseEvents(tempGroupEvents);
-                }).then( this.setState({
-                    groupEvents : tempGroupEvents
-                  }))
-      
-      
+                })
+        this.updateGroupEvents(tempGroupEvents);
   }
 
+  updateGroupEvents(tempGroupEvents){
+      this.setState({
+          groupEvents : tempGroupEvents
+      })
+  }
   onToggleCalendar = () =>{
     //this.getGroupEvents(id);
     // setTimeout (() => {
@@ -224,8 +227,8 @@ class myCalendar extends Component {
       setTimeout (() => {
       //parseEvents(tempGroupEvents);
      
-      console.log(tempGroupEvents);
-    }, 300)
+      console.log(this.state.groupEvents);
+    }, 1000)
   }
   
   onEventResize = ({ event, start, end }) => {
@@ -274,9 +277,9 @@ class myCalendar extends Component {
               native
               force
               items={this.state.showGroupEvents}
-              from={{opacity: 0,}}
-              enter={{ opacity: 1,}}
-              leave={{ position: 'absolute', opacity: 0,}}>
+              from={{transform: 'rotateX(-180deg)'}}
+              enter={{ transform: 'rotateX(0deg)'}}
+              leave={{ position: 'absolute', transform: 'rotateX(-180deg)', opacity: '0'}}>
               {toggle =>
                 toggle
                   ? props => 
@@ -287,6 +290,7 @@ class myCalendar extends Component {
                       defaultDate={new Date()}
                       events={this.state.events}
                       resizable
+                      defaultView = 'week'
                       onEventResize={this.onEventResize}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
                       onSelectEvent={event => alert( event.title)}
@@ -300,11 +304,12 @@ class myCalendar extends Component {
                       defaultDate={new Date()}
                       events={this.state.groupEvents}
                       resizable
+                      defaultView = 'week'
                       onEventResize={this.onEventResize}
                       eventPropGetter={(this.eventStyleGetter)}
                       style={{ height: "80vh", width: "55vw", margin: 10}}
                       onSelectEvent={event => alert( `${event.title}
-start:${event.start.} 
+start:${event.start} 
 end:${event.end} `)}
                       onSelectSlot={this.handleSelect}
                     /></animated.div>}
