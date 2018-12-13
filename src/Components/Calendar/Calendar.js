@@ -61,16 +61,11 @@ class myCalendar extends Component {
       events: [],
       groupEvents: [],
       groups: [],
-      selectedGroup: [],
       showGroupEvents: true
     }
   }
     
-  //Every time the component mounts we are pushing event event into a temp event array
-  componentWillMount(){
-     
-              
-   }
+ 
   getUserGroups(){
         console.log("getUserGroups")
 
@@ -86,6 +81,7 @@ class myCalendar extends Component {
         }).then( res => res.json())
         //.then( groups => console.log(groups))
         .then(groups => {for(let i = 0; i < groups.length; i++){tempGroups.push(groups[i])}})
+        .then(console.log(tempGroups))
                       
   }
 
@@ -175,19 +171,29 @@ class myCalendar extends Component {
   }
 
   getGroupEvents = id => {
-      fetch('/groups/api_get_all_events_for_group', {
+        tempGroupEvents = [];
+        fetch('/groups/api_get_all_events_for_group', {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
             body: JSON.stringify({
-              group_id: 1,
+              group_id: id,
             }),
           }).then( res => res.json())
-           .then( event => {for(let i = 0; i < event.length; i++){tempGroupEvents.push(event[i])}})
+           .then( events => {
+                    for(let i = 0; i < events.length; i++){
+                      tempGroupEvents.push(events[i])
+                    }
+                  parseEvents(tempGroupEvents);
+                }).then( this.setState({
+                    groupEvents : tempGroupEvents
+                  }))
+      
+      
   }
 
-  onToggleCalendar = id =>{
+  onToggleCalendar = () =>{
     //this.getGroupEvents(id);
     // setTimeout (() => {
     //   parseEvents(tempGroupEvents);
@@ -199,7 +205,15 @@ class myCalendar extends Component {
   }
   
 
-
+  onSelectGroup = id =>{
+      console.log("GROUP " + id);
+      this.getGroupEvents(id);
+      setTimeout (() => {
+      //parseEvents(tempGroupEvents);
+     
+      console.log("TEMP EVENTS" + tempGroupEvents);
+    }, 300)
+  }
   
   onEventResize = ({ event, start, end }) => {
     const { events } = this.state
@@ -285,7 +299,7 @@ class myCalendar extends Component {
               from={{float: 'left', opacity: 0 }}
               to={{ opacity: 1 }}>
               {props => <animated.div style = {props}>
-                           <GroupTable groups = {this.state.groups} user = {this.props.user}/>
+                           <GroupTable groups = {this.state.groups} user = {this.props.user} onSelectGroup = {this.onSelectGroup}/>
                           </animated.div>}
             </Spring>
               
@@ -293,7 +307,7 @@ class myCalendar extends Component {
             </div>
 
             
-            <Button  size="small" color="primary" onClick = {() => {this.onToggleCalendar({idNum})}} >Toggle:</Button>
+            <Button  size="small" color="primary" onClick = {() => {this.onToggleCalendar()}} >Toggle</Button>
 
 
             

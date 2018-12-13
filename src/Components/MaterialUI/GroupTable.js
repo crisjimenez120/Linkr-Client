@@ -5,9 +5,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
 import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 //import { Link } from 'react-router-dom';
 import Modal from './Modal'
@@ -26,29 +26,22 @@ const styles = theme => ({
 
 
 
-class CheckboxList extends React.Component {
+class GroupTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      checked: [0],
+      value: '',
     }
   }
  
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked,
-    });
+  handleChange = event => {
+    console.log(event);
+    this.setState({ value: event});
+    this.props.onSelectGroup(this.state.value);
+    
   };
+
 
   render() {
     const { classes } = this.props;
@@ -56,20 +49,17 @@ class CheckboxList extends React.Component {
     return (
       <div >
       <List className={classes.root}>
+        
         {this.props.groups.map(group => (
-          <ListItem key={group.id} role={undefined} dense button onClick={this.handleToggle(group)}>
-            <Checkbox
-              checked={this.state.checked.indexOf(group) !== -1}
-              tabIndex={-1}
-              disableRipple
-            />
+
+          <ListItem key={group.group_id} role={undefined} dense button onClick={() => this.handleChange(group.group_id)}>
+             {group.group_id}
             <ListItemText primary={group.group_name} />
-           
-              
                 <EditGroup group = {group}/>
            
           </ListItem>
         ))}
+
       </List>
        <Modal user = {this.props.user}/>
        </div>
@@ -80,8 +70,8 @@ class CheckboxList extends React.Component {
 
 
 
-CheckboxList.propTypes = {
+GroupTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CheckboxList);
+export default withStyles(styles)(GroupTable);
