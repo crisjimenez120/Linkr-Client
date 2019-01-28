@@ -26,8 +26,8 @@ function reviver(key, value) {
 }
 
 let selectColor = (n) => {
-  // Color array    blue,     red      green,     yellow,     pink, purple, orange, aqua, light blue 
-  var colors = ["3300CC", "D00000", "006633", "CCFF66", "FF66FF", "9900CC", "00FFFF", "00FFFF"];
+  // Color array    blue,     red      green,        pink, purple, orange,
+  var colors = ["3300CC", "D00000", "006633", "FF66FF", "9900CC", '4286f4', 'f49841'];
   return colors[n % colors.length];
 }
  
